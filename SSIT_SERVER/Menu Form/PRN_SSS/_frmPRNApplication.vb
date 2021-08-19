@@ -21,7 +21,9 @@ Public Class _frmPRNApplication
 
             Dim ErrMsg As String = ""
 
-            If Not SharedFunction.Get_getAllowedMemberTypeListPRN(cboMembershipType, printF.GetCoverageStatus_v2(_frmWebBrowser.WebBrowser1), ErrMsg) Then
+            'revised during production because employee static information is different Aug19
+            'If Not SharedFunction.Get_getAllowedMemberTypeListPRN(cboMembershipType, printF.GetCoverageStatus_v2(_frmWebBrowser.WebBrowser1), ErrMsg) Then
+            If Not SharedFunction.Get_getAllowedMemberTypeListPRN(cboMembershipType, printF.GetCoverageStatusv3(_frmWebBrowser.WebBrowser1), ErrMsg) Then
                 SharedFunction.ShowErrorMessage(String.Format("getAllowedMemberTypeListPRN(): Failed to get ws list for '{0}'", printF.GetCoverageStatus_v2(_frmWebBrowser.WebBrowser1)))
                 cboMembershipType.Items.Clear()
                 cboMembershipType.Items.Add("-POPULATION FAILED-")
@@ -204,12 +206,12 @@ Public Class _frmPRNApplication
         If SharedFunction.ShowMessage("Are you sure you want to cancel request?") = Windows.Forms.DialogResult.Yes Then
             'RedirectTo_withPRN(_frmPRN_Generate)
             '_frmMainMenu.btnACOP.PerformClick()
-            cboMembershipType.SelectedIndex = 0
+            If cboMembershipType.Items.Count > 0 Then cboMembershipType.SelectedIndex = 0
             txtFlexiFundAmount.Text = "0.00"
             txtTotalAmount.Text = "0.00"
             cboMonth_From.SelectedIndex = 0
             cboMonth_To.SelectedIndex = 0
-            cboContribution.SelectedIndex = 0
+            If cboContribution.Items.Count > 0 Then cboContribution.SelectedIndex = 0
             If cboYear_From.Items.Count > 0 Then cboYear_From.SelectedIndex = cboYear_From.FindString(Now.Year)
             If cboYear_To.Items.Count > 0 Then cboYear_To.SelectedIndex = cboYear_To.FindString(Now.Year)
         End If

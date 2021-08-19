@@ -127,7 +127,8 @@
         End Function
 
         Public Function isMatNotifEligible() As MobileWS2BeanService.webResponse
-            Dim service As New MobileWS2BeanService.MobileWS2BeanService
+            'Dim service As New MobileWS2BeanService.MobileWS2BeanService
+            Dim service As New MobileWS2BeanService.MobileWSBeanService
             Dim local As New MobileWS2BeanService.webResponse
             service.Url = MobileWS2BeanService_URL
             Try
@@ -144,7 +145,8 @@
         End Function
 
         Public Function submitMatNotif() As MobileWS2BeanService.webTransactionResponse
-            Dim service As New MobileWS2BeanService.MobileWS2BeanService
+            'Dim service As New MobileWS2BeanService.MobileWS2BeanService
+            Dim service As New MobileWS2BeanService.MobileWSBeanService
             service.Url = MobileWS2BeanService_URL
             Try
                 Dim allocation As String = "N"

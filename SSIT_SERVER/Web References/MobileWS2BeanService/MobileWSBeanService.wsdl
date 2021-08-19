@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://sevice.webservice.ejbsss/" name="MobileWS2BeanService" targetNamespace="http://sevice.webservice.ejbsss/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://service.webservice.sss/" name="MobileWSBeanService" targetNamespace="http://service.webservice.sss/" xmlns="http://schemas.xmlsoap.org/wsdl/">
   <types>
     <xsd:schema>
-      <xsd:import schemaLocation="http://wws.sss.gov.ph:80/MobileWS2Bean/MobileWS2BeanService?xsd=1" namespace="http://sevice.webservice.ejbsss/" />
+      <xsd:import schemaLocation="http://wws.sss.gov.ph:80/MobileWSBean/MobileWSBeanService?xsd=1" namespace="http://service.webservice.sss/" />
     </xsd:schema>
     <xsd:schema>
-      <xsd:import schemaLocation="http://wws.sss.gov.ph:80/MobileWS2Bean/MobileWS2BeanService?xsd=2" namespace="http://jaxb.dev.java.net/array" />
+      <xsd:import schemaLocation="http://wws.sss.gov.ph:80/MobileWSBean/MobileWSBeanService?xsd=2" namespace="http://jaxb.dev.java.net/array" />
     </xsd:schema>
   </types>
   <message name="connect">
@@ -13,14 +13,6 @@
   </message>
   <message name="connectResponse">
     <part name="return" type="tns:webResponse" />
-  </message>
-  <message name="getMemberType">
-    <part name="authToken" type="xsd:string" />
-    <part name="wsUserName" type="xsd:string" />
-    <part name="ssnumber" type="xsd:string" />
-  </message>
-  <message name="getMemberTypeResponse">
-    <part name="return" type="tns:memberType" />
   </message>
   <message name="getBranches">
     <part name="authToken" type="xsd:string" />
@@ -69,6 +61,24 @@
   </message>
   <message name="getCompleteAddressResponse">
     <part name="return" type="tns:completeAddress" />
+  </message>
+  <message name="maternityNotifEligibility">
+    <part name="authToken" type="xsd:string" />
+    <part name="pseudoNo" type="xsd:string" />
+  </message>
+  <message name="maternityNotifEligibilityResponse">
+    <part name="return" type="tns:webResponse" />
+  </message>
+  <message name="maternityNotifSubmit">
+    <part name="authToken" type="xsd:string" />
+    <part name="tranToken" type="xsd:string" />
+    <part name="pseudoNo" type="xsd:string" />
+    <part name="expectedDeliveryDate" type="xsd:string" />
+    <part name="prevNoOfDelivery" type="xsd:string" />
+    <part name="dateOfLastDelivery" type="xsd:string" />
+  </message>
+  <message name="maternityNotifSubmitResponse">
+    <part name="return" type="tns:webTransactionResponse" />
   </message>
   <message name="getParamInquirePRN">
     <part name="pseudoNo" type="xsd:string" />
@@ -306,6 +316,23 @@
   <message name="getMultiEmployerAddressResponse">
     <part name="return" type="tns:employerAddressArray" />
   </message>
+  <message name="getMemberType">
+    <part name="authToken" type="xsd:string" />
+    <part name="wsUserName" type="xsd:string" />
+    <part name="ssnumber" type="xsd:string" />
+  </message>
+  <message name="getMemberTypeResponse">
+    <part name="return" type="tns:memberType" />
+  </message>
+  <message name="isMaternityNotifExist">
+    <part name="authToken" type="xsd:string" />
+    <part name="wsUserName" type="xsd:string" />
+    <part name="ssnumber" type="xsd:string" />
+    <part name="deliveryDate" type="xsd:string" />
+  </message>
+  <message name="isMaternityNotifExistResponse">
+    <part name="return" type="tns:webResponse" />
+  </message>
   <message name="getContributionStatus">
     <part name="authToken" type="xsd:string" />
     <part name="tranToken" type="xsd:string" />
@@ -370,14 +397,10 @@
   <message name="getSalaryLoanBalanceResponse">
     <part name="return" type="tns:salaryLoanStatus" />
   </message>
-  <portType name="MobileWS2BeanService">
+  <portType name="MobileWSBeanPortType">
     <operation name="connect">
       <input message="tns:connect" />
       <output message="tns:connectResponse" />
-    </operation>
-    <operation name="getMemberType" parameterOrder="authToken wsUserName ssnumber">
-      <input message="tns:getMemberType" />
-      <output message="tns:getMemberTypeResponse" />
     </operation>
     <operation name="getBranches" parameterOrder="authToken postalCode city">
       <input message="tns:getBranches" />
@@ -402,6 +425,14 @@
     <operation name="getCompleteAddress" parameterOrder="authToken tranToken pseudoNo">
       <input message="tns:getCompleteAddress" />
       <output message="tns:getCompleteAddressResponse" />
+    </operation>
+    <operation name="maternityNotifEligibility" parameterOrder="authToken pseudoNo">
+      <input message="tns:maternityNotifEligibility" />
+      <output message="tns:maternityNotifEligibilityResponse" />
+    </operation>
+    <operation name="maternityNotifSubmit" parameterOrder="authToken tranToken pseudoNo expectedDeliveryDate prevNoOfDelivery dateOfLastDelivery">
+      <input message="tns:maternityNotifSubmit" />
+      <output message="tns:maternityNotifSubmitResponse" />
     </operation>
     <operation name="getParamInquirePRN">
       <input message="tns:getParamInquirePRN" />
@@ -503,6 +534,14 @@
       <input message="tns:getMultiEmployerAddress" />
       <output message="tns:getMultiEmployerAddressResponse" />
     </operation>
+    <operation name="getMemberType" parameterOrder="authToken wsUserName ssnumber">
+      <input message="tns:getMemberType" />
+      <output message="tns:getMemberTypeResponse" />
+    </operation>
+    <operation name="isMaternityNotifExist" parameterOrder="authToken wsUserName ssnumber deliveryDate">
+      <input message="tns:isMaternityNotifExist" />
+      <output message="tns:isMaternityNotifExistResponse" />
+    </operation>
     <operation name="getContributionStatus" parameterOrder="authToken tranToken pseudoNo">
       <input message="tns:getContributionStatus" />
       <output message="tns:getContributionStatusResponse" />
@@ -536,381 +575,408 @@
       <output message="tns:getSalaryLoanBalanceResponse" />
     </operation>
   </portType>
-  <binding name="MobileWS2BeanServicePortBinding" type="tns:MobileWS2BeanService">
+  <binding name="MobileWSPortBinding" type="tns:MobileWSBeanPortType">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
     <operation name="connect">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
-      </output>
-    </operation>
-    <operation name="getMemberType">
-      <soap:operation soapAction="" />
-      <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
-      </input>
-      <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getBranches">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="loginWebAccount">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="forgotPassword">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getMemberProfile">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getOtherInfo">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getCompleteAddress">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
+      </output>
+    </operation>
+    <operation name="maternityNotifEligibility">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
+      </output>
+    </operation>
+    <operation name="maternityNotifSubmit">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getParamInquirePRN">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getAllowedMemberTypeListPRN">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getContributionListPRN">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="insertTransactionPRN">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getMemberTypeSL">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getEmployerAddressesSL">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="submitSalaryLoanApplication">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getMailingAddressSL">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getActualPremiums">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getActualPremiumsSummary">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getMetroManilaProvinces">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getProvinces">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getMunicipalities">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getBrgyPostalCd">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getCountries">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="insertTranxUpdateContactInfo">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="isMatNotifEligible">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="submitMatNotif">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="generateTransNoPM">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="postExitSurvey">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="isMemberWebRegistered">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getContactInfoAddress">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="insertRetirementApp">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getLatestEmployer">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getMultiEmployerAddress">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
+      </output>
+    </operation>
+    <operation name="getMemberType">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
+      </output>
+    </operation>
+    <operation name="isMaternityNotifExist">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getContributionStatus">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getSalaryLoanStatus">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getEcMedStatus">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getRetirementStatus">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getDisabilityStatus">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getMaternityStatus">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getSicknessStatus">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
     <operation name="getSalaryLoanBalance">
       <soap:operation soapAction="" />
       <input>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </input>
       <output>
-        <soap:body use="literal" namespace="http://sevice.webservice.ejbsss/" />
+        <soap:body use="literal" namespace="http://service.webservice.sss/" />
       </output>
     </operation>
   </binding>
-  <service name="MobileWS2BeanService">
-    <port name="MobileWS2BeanServicePort" binding="tns:MobileWS2BeanServicePortBinding">
-      <soap:address location="http://wws.sss.gov.ph:80/MobileWS2Bean/MobileWS2BeanService" />
+  <service name="MobileWSBeanService">
+    <port name="MobileWSPort" binding="tns:MobileWSPortBinding">
+      <soap:address location="http://wws.sss.gov.ph:80/MobileWSBean/MobileWSBeanService" />
     </port>
   </service>
 </definitions>

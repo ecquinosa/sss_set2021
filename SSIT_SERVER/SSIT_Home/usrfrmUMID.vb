@@ -160,11 +160,7 @@ Public Class usrfrmUMID
         'Dim isGSIS As Boolean
         Dim umid As New umid()
         If umid.ReadData(True,) Then
-            sbTest.Append("CRN: " & umid.crn & vbNewLine)
-            sbTest.Append("CCDT: " & umid.ccdt & vbNewLine)
-            sbTest.Append("CARD STATUS: " & umid.cardStatus & vbNewLine)
-            sbTest.Append("36: " & umid.sssSector36 & vbNewLine)
-            MessageBox.Show(sbTest.ToString)
+            SharedFunction.SaveToLog(SharedFunction.TimeStamp & "|" & String.Format("CRN {0}, CCDT {1}, STATUS {2}, S36 {3}", umid.crn, umid.ccdt, umid.cardStatus, umid.sssSector36) & "|" & kioskIP & "|" & getbranchCoDE_1)
 
             If umid.cardStatusCode = "9" Then
                 SharedFunction.SaveToLog(SharedFunction.TimeStamp & "|" & "Card with CRN " & tempCRN & " is blocked" & "|" & kioskIP & "|" & getbranchCoDE_1)
@@ -282,7 +278,7 @@ Public Class usrfrmUMID
 
         tempCRN = crn
 
-        MessageBox.Show(sbTest.ToString())
+        'MessageBox.Show(sbTest.ToString())
         LabelStatus("Reading details, please do not remove your card...")
 
 
@@ -400,9 +396,7 @@ Public Class usrfrmUMID
                     Dim PIN As String = ""
 
                     Dim intResult As Short = SharedFunction.CHECKIFRECENT(Me, tempCRN, _CCDT, 2, SSNum, PIN)
-                    sbTest.Append("CARD_ACTIVE" & vbNewLine)
-                    sbTest.Append("CHECKIFRECENT RESULT " & intResult.ToString & vbNewLine)
-                    MessageBox.Show(sbTest.ToString)
+                    SharedFunction.SaveToLog(SharedFunction.TimeStamp & "|" & String.Format("Card is active. CHECKIFRECENT result {0}, ", intResult.ToString) & "|" & kioskIP & "|" & getbranchCoDE_1)
 
                     Select Case intResult
                         Case 0

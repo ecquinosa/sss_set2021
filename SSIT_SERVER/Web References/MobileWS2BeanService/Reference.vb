@@ -27,13 +27,11 @@ Namespace MobileWS2BeanService
     <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Web.Services.WebServiceBindingAttribute(Name:="MobileWS2BeanServicePortBinding", [Namespace]:="http://sevice.webservice.ejbsss/")>  _
-    Partial Public Class MobileWS2BeanService
+     System.Web.Services.WebServiceBindingAttribute(Name:="MobileWSPortBinding", [Namespace]:="http://service.webservice.sss/")>  _
+    Partial Public Class MobileWSBeanService
         Inherits System.Web.Services.Protocols.SoapHttpClientProtocol
         
         Private connectOperationCompleted As System.Threading.SendOrPostCallback
-        
-        Private getMemberTypeOperationCompleted As System.Threading.SendOrPostCallback
         
         Private getBranchesOperationCompleted As System.Threading.SendOrPostCallback
         
@@ -46,6 +44,10 @@ Namespace MobileWS2BeanService
         Private getOtherInfoOperationCompleted As System.Threading.SendOrPostCallback
         
         Private getCompleteAddressOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private maternityNotifEligibilityOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private maternityNotifSubmitOperationCompleted As System.Threading.SendOrPostCallback
         
         Private getParamInquirePRNOperationCompleted As System.Threading.SendOrPostCallback
         
@@ -96,6 +98,10 @@ Namespace MobileWS2BeanService
         Private getLatestEmployerOperationCompleted As System.Threading.SendOrPostCallback
         
         Private getMultiEmployerAddressOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private getMemberTypeOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private isMaternityNotifExistOperationCompleted As System.Threading.SendOrPostCallback
         
         Private getContributionStatusOperationCompleted As System.Threading.SendOrPostCallback
         
@@ -155,9 +161,6 @@ Namespace MobileWS2BeanService
         Public Event connectCompleted As connectCompletedEventHandler
         
         '''<remarks/>
-        Public Event getMemberTypeCompleted As getMemberTypeCompletedEventHandler
-        
-        '''<remarks/>
         Public Event getBranchesCompleted As getBranchesCompletedEventHandler
         
         '''<remarks/>
@@ -174,6 +177,12 @@ Namespace MobileWS2BeanService
         
         '''<remarks/>
         Public Event getCompleteAddressCompleted As getCompleteAddressCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event maternityNotifEligibilityCompleted As maternityNotifEligibilityCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event maternityNotifSubmitCompleted As maternityNotifSubmitCompletedEventHandler
         
         '''<remarks/>
         Public Event getParamInquirePRNCompleted As getParamInquirePRNCompletedEventHandler
@@ -251,6 +260,12 @@ Namespace MobileWS2BeanService
         Public Event getMultiEmployerAddressCompleted As getMultiEmployerAddressCompletedEventHandler
         
         '''<remarks/>
+        Public Event getMemberTypeCompleted As getMemberTypeCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event isMaternityNotifExistCompleted As isMaternityNotifExistCompletedEventHandler
+        
+        '''<remarks/>
         Public Event getContributionStatusCompleted As getContributionStatusCompletedEventHandler
         
         '''<remarks/>
@@ -275,7 +290,7 @@ Namespace MobileWS2BeanService
         Public Event getSalaryLoanBalanceCompleted As getSalaryLoanBalanceCompletedEventHandler
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function connect(ByVal authToken As String) As <System.Xml.Serialization.XmlElementAttribute("return")> webResponse
             Dim results() As Object = Me.Invoke("connect", New Object() {authToken})
             Return CType(results(0),webResponse)
@@ -302,34 +317,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
-        Public Function getMemberType(ByVal authToken As String, ByVal wsUserName As String, ByVal ssnumber As String) As <System.Xml.Serialization.XmlElementAttribute("return")> memberType
-            Dim results() As Object = Me.Invoke("getMemberType", New Object() {authToken, wsUserName, ssnumber})
-            Return CType(results(0),memberType)
-        End Function
-        
-        '''<remarks/>
-        Public Overloads Sub getMemberTypeAsync(ByVal authToken As String, ByVal wsUserName As String, ByVal ssnumber As String)
-            Me.getMemberTypeAsync(authToken, wsUserName, ssnumber, Nothing)
-        End Sub
-        
-        '''<remarks/>
-        Public Overloads Sub getMemberTypeAsync(ByVal authToken As String, ByVal wsUserName As String, ByVal ssnumber As String, ByVal userState As Object)
-            If (Me.getMemberTypeOperationCompleted Is Nothing) Then
-                Me.getMemberTypeOperationCompleted = AddressOf Me.OngetMemberTypeOperationCompleted
-            End If
-            Me.InvokeAsync("getMemberType", New Object() {authToken, wsUserName, ssnumber}, Me.getMemberTypeOperationCompleted, userState)
-        End Sub
-        
-        Private Sub OngetMemberTypeOperationCompleted(ByVal arg As Object)
-            If (Not (Me.getMemberTypeCompletedEvent) Is Nothing) Then
-                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
-                RaiseEvent getMemberTypeCompleted(Me, New getMemberTypeCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
-            End If
-        End Sub
-        
-        '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getBranches(ByVal authToken As String, ByVal postalCode As String, ByVal city As String) As <System.Xml.Serialization.XmlArrayAttribute("return"), System.Xml.Serialization.XmlArrayItemAttribute("item", Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)> branch()
             Dim results() As Object = Me.Invoke("getBranches", New Object() {authToken, postalCode, city})
             Return CType(results(0),branch())
@@ -356,7 +344,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function loginWebAccount(ByVal authToken As String, ByVal tranToken As String, ByVal userid As String, ByVal password As String) As <System.Xml.Serialization.XmlElementAttribute("return")> webResponse
             Dim results() As Object = Me.Invoke("loginWebAccount", New Object() {authToken, tranToken, userid, password})
             Return CType(results(0),webResponse)
@@ -383,7 +371,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function forgotPassword(ByVal authToken As String, ByVal userid As String) As <System.Xml.Serialization.XmlElementAttribute("return")> webResponse
             Dim results() As Object = Me.Invoke("forgotPassword", New Object() {authToken, userid})
             Return CType(results(0),webResponse)
@@ -410,7 +398,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getMemberProfile(ByVal authToken As String, ByVal tranToken As String, ByVal pseudoNo As String) As <System.Xml.Serialization.XmlElementAttribute("return")> memberProfile
             Dim results() As Object = Me.Invoke("getMemberProfile", New Object() {authToken, tranToken, pseudoNo})
             Return CType(results(0),memberProfile)
@@ -437,7 +425,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getOtherInfo(ByVal authToken As String, ByVal tranToken As String, ByVal pseudoNo As String) As <System.Xml.Serialization.XmlElementAttribute("return")> otherInformation
             Dim results() As Object = Me.Invoke("getOtherInfo", New Object() {authToken, tranToken, pseudoNo})
             Return CType(results(0),otherInformation)
@@ -464,7 +452,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getCompleteAddress(ByVal authToken As String, ByVal tranToken As String, ByVal pseudoNo As String) As <System.Xml.Serialization.XmlElementAttribute("return")> completeAddress
             Dim results() As Object = Me.Invoke("getCompleteAddress", New Object() {authToken, tranToken, pseudoNo})
             Return CType(results(0),completeAddress)
@@ -491,7 +479,61 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        Public Function maternityNotifEligibility(ByVal authToken As String, ByVal pseudoNo As String) As <System.Xml.Serialization.XmlElementAttribute("return")> webResponse
+            Dim results() As Object = Me.Invoke("maternityNotifEligibility", New Object() {authToken, pseudoNo})
+            Return CType(results(0),webResponse)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub maternityNotifEligibilityAsync(ByVal authToken As String, ByVal pseudoNo As String)
+            Me.maternityNotifEligibilityAsync(authToken, pseudoNo, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub maternityNotifEligibilityAsync(ByVal authToken As String, ByVal pseudoNo As String, ByVal userState As Object)
+            If (Me.maternityNotifEligibilityOperationCompleted Is Nothing) Then
+                Me.maternityNotifEligibilityOperationCompleted = AddressOf Me.OnmaternityNotifEligibilityOperationCompleted
+            End If
+            Me.InvokeAsync("maternityNotifEligibility", New Object() {authToken, pseudoNo}, Me.maternityNotifEligibilityOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnmaternityNotifEligibilityOperationCompleted(ByVal arg As Object)
+            If (Not (Me.maternityNotifEligibilityCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent maternityNotifEligibilityCompleted(Me, New maternityNotifEligibilityCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        Public Function maternityNotifSubmit(ByVal authToken As String, ByVal tranToken As String, ByVal pseudoNo As String, ByVal expectedDeliveryDate As String, ByVal prevNoOfDelivery As String, ByVal dateOfLastDelivery As String) As <System.Xml.Serialization.XmlElementAttribute("return")> webTransactionResponse
+            Dim results() As Object = Me.Invoke("maternityNotifSubmit", New Object() {authToken, tranToken, pseudoNo, expectedDeliveryDate, prevNoOfDelivery, dateOfLastDelivery})
+            Return CType(results(0),webTransactionResponse)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub maternityNotifSubmitAsync(ByVal authToken As String, ByVal tranToken As String, ByVal pseudoNo As String, ByVal expectedDeliveryDate As String, ByVal prevNoOfDelivery As String, ByVal dateOfLastDelivery As String)
+            Me.maternityNotifSubmitAsync(authToken, tranToken, pseudoNo, expectedDeliveryDate, prevNoOfDelivery, dateOfLastDelivery, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub maternityNotifSubmitAsync(ByVal authToken As String, ByVal tranToken As String, ByVal pseudoNo As String, ByVal expectedDeliveryDate As String, ByVal prevNoOfDelivery As String, ByVal dateOfLastDelivery As String, ByVal userState As Object)
+            If (Me.maternityNotifSubmitOperationCompleted Is Nothing) Then
+                Me.maternityNotifSubmitOperationCompleted = AddressOf Me.OnmaternityNotifSubmitOperationCompleted
+            End If
+            Me.InvokeAsync("maternityNotifSubmit", New Object() {authToken, tranToken, pseudoNo, expectedDeliveryDate, prevNoOfDelivery, dateOfLastDelivery}, Me.maternityNotifSubmitOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnmaternityNotifSubmitOperationCompleted(ByVal arg As Object)
+            If (Not (Me.maternityNotifSubmitCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent maternityNotifSubmitCompleted(Me, New maternityNotifSubmitCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getParamInquirePRN(ByVal pseudoNo As String) As <System.Xml.Serialization.XmlElementAttribute("return")> paymentRefNo
             Dim results() As Object = Me.Invoke("getParamInquirePRN", New Object() {pseudoNo})
             Return CType(results(0),paymentRefNo)
@@ -518,7 +560,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getAllowedMemberTypeListPRN(ByVal authToken As String, ByVal memberType As String) As <System.Xml.Serialization.XmlArrayAttribute("return"), System.Xml.Serialization.XmlArrayItemAttribute("item", Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)> String()
             Dim results() As Object = Me.Invoke("getAllowedMemberTypeListPRN", New Object() {authToken, memberType})
             Return CType(results(0),String())
@@ -545,7 +587,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getContributionListPRN(ByVal authToken As String) As <System.Xml.Serialization.XmlArrayAttribute("return"), System.Xml.Serialization.XmlArrayItemAttribute("item", Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)> String()
             Dim results() As Object = Me.Invoke("getContributionListPRN", New Object() {authToken})
             Return CType(results(0),String())
@@ -572,7 +614,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function insertTransactionPRN(ByVal authToken As String, ByVal paymentRefNo As String, ByVal applicableDate As String, ByVal ssnum As String, ByVal monthlyContribution As String, ByVal flexiFundContribution As String, ByVal totalAmount As String, ByVal memberType As String) As <System.Xml.Serialization.XmlElementAttribute("return")> webResponse
             Dim results() As Object = Me.Invoke("insertTransactionPRN", New Object() {authToken, paymentRefNo, applicableDate, ssnum, monthlyContribution, flexiFundContribution, totalAmount, memberType})
             Return CType(results(0),webResponse)
@@ -599,7 +641,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getMemberTypeSL(ByVal pseudoNo As String) As <System.Xml.Serialization.XmlElementAttribute("return")> memberType
             Dim results() As Object = Me.Invoke("getMemberTypeSL", New Object() {pseudoNo})
             Return CType(results(0),memberType)
@@ -626,7 +668,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getEmployerAddressesSL(ByVal authToken As String, ByVal employerSSNumber As String) As <System.Xml.Serialization.XmlArrayAttribute("return"), System.Xml.Serialization.XmlArrayItemAttribute("item", Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)> employerAddress()
             Dim results() As Object = Me.Invoke("getEmployerAddressesSL", New Object() {authToken, employerSSNumber})
             Return CType(results(0),employerAddress())
@@ -653,7 +695,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function submitSalaryLoanApplication( _
                     ByVal authToken As String,  _
                     ByVal ssnum As String,  _
@@ -735,7 +777,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getMailingAddressSL(ByVal pseudoNo As String) As <System.Xml.Serialization.XmlElementAttribute("return")> mailingAddress
             Dim results() As Object = Me.Invoke("getMailingAddressSL", New Object() {pseudoNo})
             Return CType(results(0),mailingAddress)
@@ -762,7 +804,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getActualPremiums(ByVal authToken As String, ByVal ssnum As String) As <System.Xml.Serialization.XmlArrayAttribute("return"), System.Xml.Serialization.XmlArrayItemAttribute("item", Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)> actualPremiums()
             Dim results() As Object = Me.Invoke("getActualPremiums", New Object() {authToken, ssnum})
             Return CType(results(0),actualPremiums())
@@ -789,7 +831,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getActualPremiumsSummary(ByVal authToken As String, ByVal ssnum As String) As <System.Xml.Serialization.XmlElementAttribute("return")> actualPremiumsSummary
             Dim results() As Object = Me.Invoke("getActualPremiumsSummary", New Object() {authToken, ssnum})
             Return CType(results(0),actualPremiumsSummary)
@@ -816,7 +858,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getMetroManilaProvinces(ByVal authToken As String) As <System.Xml.Serialization.XmlArrayAttribute("return"), System.Xml.Serialization.XmlArrayItemAttribute("item", Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)> province()
             Dim results() As Object = Me.Invoke("getMetroManilaProvinces", New Object() {authToken})
             Return CType(results(0),province())
@@ -843,7 +885,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getProvinces(ByVal authToken As String) As <System.Xml.Serialization.XmlArrayAttribute("return"), System.Xml.Serialization.XmlArrayItemAttribute("item", Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)> province()
             Dim results() As Object = Me.Invoke("getProvinces", New Object() {authToken})
             Return CType(results(0),province())
@@ -870,7 +912,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getMunicipalities(ByVal authToken As String, ByVal province_cd As String) As <System.Xml.Serialization.XmlArrayAttribute("return"), System.Xml.Serialization.XmlArrayItemAttribute("item", Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)> municipality()
             Dim results() As Object = Me.Invoke("getMunicipalities", New Object() {authToken, province_cd})
             Return CType(results(0),municipality())
@@ -897,7 +939,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getBrgyPostalCd(ByVal authToken As String, ByVal city_mun_cd As String) As <System.Xml.Serialization.XmlArrayAttribute("return"), System.Xml.Serialization.XmlArrayItemAttribute("item", Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)> municipality()
             Dim results() As Object = Me.Invoke("getBrgyPostalCd", New Object() {authToken, city_mun_cd})
             Return CType(results(0),municipality())
@@ -924,7 +966,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getCountries(ByVal authToken As String) As <System.Xml.Serialization.XmlArrayAttribute("return"), System.Xml.Serialization.XmlArrayItemAttribute("item", Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)> country()
             Dim results() As Object = Me.Invoke("getCountries", New Object() {authToken})
             Return CType(results(0),country())
@@ -951,7 +993,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function insertTranxUpdateContactInfo(ByVal authToken As String, ByVal ssnum As String, ByVal transaction_cd As String, ByVal transactionNo As String) As <System.Xml.Serialization.XmlElementAttribute("return")> webResponse
             Dim results() As Object = Me.Invoke("insertTranxUpdateContactInfo", New Object() {authToken, ssnum, transaction_cd, transactionNo})
             Return CType(results(0),webResponse)
@@ -978,7 +1020,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function isMatNotifEligible(ByVal authToken As String, ByVal ssnumber As String, ByVal pSource As String) As <System.Xml.Serialization.XmlElementAttribute("return")> webResponse
             Dim results() As Object = Me.Invoke("isMatNotifEligible", New Object() {authToken, ssnumber, pSource})
             Return CType(results(0),webResponse)
@@ -1005,7 +1047,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function submitMatNotif(ByVal authToken As String, ByVal ssnumber As String, ByVal pSource As String, ByVal pTransactionNo As String, ByVal expectedDeliveryDate As String, ByVal allocation As String, ByVal lastName As String, ByVal firstName As String, ByVal midName As String, ByVal extensionName As String, ByVal kioskWorkStation As String, ByVal noOfAllocations As String) As <System.Xml.Serialization.XmlElementAttribute("return")> webTransactionResponse
             Dim results() As Object = Me.Invoke("submitMatNotif", New Object() {authToken, ssnumber, pSource, pTransactionNo, expectedDeliveryDate, allocation, lastName, firstName, midName, extensionName, kioskWorkStation, noOfAllocations})
             Return CType(results(0),webTransactionResponse)
@@ -1032,7 +1074,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function generateTransNoPM(ByVal authToken As String, ByVal paymentRefNo As String, ByVal channelCode As String, ByVal countryCode As String) As <System.Xml.Serialization.XmlElementAttribute("return")> webResponse
             Dim results() As Object = Me.Invoke("generateTransNoPM", New Object() {authToken, paymentRefNo, channelCode, countryCode})
             Return CType(results(0),webResponse)
@@ -1059,7 +1101,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function postExitSurvey(ByVal authToken As String, ByVal designRate As String, ByVal usefulRate As String, ByVal infoRate As String, ByVal fastRate As String, ByVal userExperienceRate As String, ByVal source As String) As <System.Xml.Serialization.XmlElementAttribute("return")> webResponse
             Dim results() As Object = Me.Invoke("postExitSurvey", New Object() {authToken, designRate, usefulRate, infoRate, fastRate, userExperienceRate, source})
             Return CType(results(0),webResponse)
@@ -1086,7 +1128,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function isMemberWebRegistered(ByVal authToken As String, ByVal wsUserName As String, ByVal ssnumber As String) As <System.Xml.Serialization.XmlElementAttribute("return")> webResponse
             Dim results() As Object = Me.Invoke("isMemberWebRegistered", New Object() {authToken, wsUserName, ssnumber})
             Return CType(results(0),webResponse)
@@ -1113,7 +1155,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getContactInfoAddress(ByVal authToken As String, ByVal wsUserName As String, ByVal ssnumber As String) As <System.Xml.Serialization.XmlElementAttribute("return")> contactInfoAdress
             Dim results() As Object = Me.Invoke("getContactInfoAddress", New Object() {authToken, wsUserName, ssnumber})
             Return CType(results(0),contactInfoAdress)
@@ -1140,7 +1182,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function insertRetirementApp( _
                     ByVal authToken As String,  _
                     ByVal wsUserName As String,  _
@@ -1237,7 +1279,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getLatestEmployer(ByVal authToken As String, ByVal wsUserName As String, ByVal ssnumber As String, ByVal tranType As String) As <System.Xml.Serialization.XmlArrayAttribute("return"), System.Xml.Serialization.XmlArrayItemAttribute("item", Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)> employer()
             Dim results() As Object = Me.Invoke("getLatestEmployer", New Object() {authToken, wsUserName, ssnumber, tranType})
             Return CType(results(0),employer())
@@ -1264,7 +1306,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getMultiEmployerAddress(ByVal authToken As String, ByVal wsUserName As String, ByVal employerSSNum As String) As <System.Xml.Serialization.XmlArrayAttribute("return"), System.Xml.Serialization.XmlArrayItemAttribute("item", Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)> employerAddress()
             Dim results() As Object = Me.Invoke("getMultiEmployerAddress", New Object() {authToken, wsUserName, employerSSNum})
             Return CType(results(0),employerAddress())
@@ -1291,7 +1333,61 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        Public Function getMemberType(ByVal authToken As String, ByVal wsUserName As String, ByVal ssnumber As String) As <System.Xml.Serialization.XmlElementAttribute("return")> memberType
+            Dim results() As Object = Me.Invoke("getMemberType", New Object() {authToken, wsUserName, ssnumber})
+            Return CType(results(0),memberType)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub getMemberTypeAsync(ByVal authToken As String, ByVal wsUserName As String, ByVal ssnumber As String)
+            Me.getMemberTypeAsync(authToken, wsUserName, ssnumber, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub getMemberTypeAsync(ByVal authToken As String, ByVal wsUserName As String, ByVal ssnumber As String, ByVal userState As Object)
+            If (Me.getMemberTypeOperationCompleted Is Nothing) Then
+                Me.getMemberTypeOperationCompleted = AddressOf Me.OngetMemberTypeOperationCompleted
+            End If
+            Me.InvokeAsync("getMemberType", New Object() {authToken, wsUserName, ssnumber}, Me.getMemberTypeOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OngetMemberTypeOperationCompleted(ByVal arg As Object)
+            If (Not (Me.getMemberTypeCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent getMemberTypeCompleted(Me, New getMemberTypeCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        Public Function isMaternityNotifExist(ByVal authToken As String, ByVal wsUserName As String, ByVal ssnumber As String, ByVal deliveryDate As String) As <System.Xml.Serialization.XmlElementAttribute("return")> webResponse
+            Dim results() As Object = Me.Invoke("isMaternityNotifExist", New Object() {authToken, wsUserName, ssnumber, deliveryDate})
+            Return CType(results(0),webResponse)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub isMaternityNotifExistAsync(ByVal authToken As String, ByVal wsUserName As String, ByVal ssnumber As String, ByVal deliveryDate As String)
+            Me.isMaternityNotifExistAsync(authToken, wsUserName, ssnumber, deliveryDate, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub isMaternityNotifExistAsync(ByVal authToken As String, ByVal wsUserName As String, ByVal ssnumber As String, ByVal deliveryDate As String, ByVal userState As Object)
+            If (Me.isMaternityNotifExistOperationCompleted Is Nothing) Then
+                Me.isMaternityNotifExistOperationCompleted = AddressOf Me.OnisMaternityNotifExistOperationCompleted
+            End If
+            Me.InvokeAsync("isMaternityNotifExist", New Object() {authToken, wsUserName, ssnumber, deliveryDate}, Me.isMaternityNotifExistOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnisMaternityNotifExistOperationCompleted(ByVal arg As Object)
+            If (Not (Me.isMaternityNotifExistCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent isMaternityNotifExistCompleted(Me, New isMaternityNotifExistCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getContributionStatus(ByVal authToken As String, ByVal tranToken As String, ByVal pseudoNo As String) As <System.Xml.Serialization.XmlElementAttribute("return")> contributionStatus
             Dim results() As Object = Me.Invoke("getContributionStatus", New Object() {authToken, tranToken, pseudoNo})
             Return CType(results(0),contributionStatus)
@@ -1318,7 +1414,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getSalaryLoanStatus(ByVal authToken As String, ByVal tranToken As String, ByVal pseudoNo As String) As <System.Xml.Serialization.XmlElementAttribute("return")> salaryLoanStatus
             Dim results() As Object = Me.Invoke("getSalaryLoanStatus", New Object() {authToken, tranToken, pseudoNo})
             Return CType(results(0),salaryLoanStatus)
@@ -1345,7 +1441,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getEcMedStatus(ByVal authToken As String, ByVal tranToken As String, ByVal pseudoNo As String) As <System.Xml.Serialization.XmlElementAttribute("return")> ecMedStatus
             Dim results() As Object = Me.Invoke("getEcMedStatus", New Object() {authToken, tranToken, pseudoNo})
             Return CType(results(0),ecMedStatus)
@@ -1372,7 +1468,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getRetirementStatus(ByVal authToken As String, ByVal tranToken As String, ByVal pseudoNo As String) As <System.Xml.Serialization.XmlElementAttribute("return")> retirementStatus
             Dim results() As Object = Me.Invoke("getRetirementStatus", New Object() {authToken, tranToken, pseudoNo})
             Return CType(results(0),retirementStatus)
@@ -1399,7 +1495,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getDisabilityStatus(ByVal authToken As String, ByVal tranToken As String, ByVal pseudoNo As String) As <System.Xml.Serialization.XmlElementAttribute("return")> disabilityStatus
             Dim results() As Object = Me.Invoke("getDisabilityStatus", New Object() {authToken, tranToken, pseudoNo})
             Return CType(results(0),disabilityStatus)
@@ -1426,7 +1522,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getMaternityStatus(ByVal authToken As String, ByVal tranToken As String, ByVal pseudoNo As String) As <System.Xml.Serialization.XmlElementAttribute("return")> maternityStatus
             Dim results() As Object = Me.Invoke("getMaternityStatus", New Object() {authToken, tranToken, pseudoNo})
             Return CType(results(0),maternityStatus)
@@ -1453,7 +1549,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getSicknessStatus(ByVal authToken As String, ByVal tranToken As String, ByVal pseudoNo As String) As <System.Xml.Serialization.XmlElementAttribute("return")> sicknessStatus
             Dim results() As Object = Me.Invoke("getSicknessStatus", New Object() {authToken, tranToken, pseudoNo})
             Return CType(results(0),sicknessStatus)
@@ -1480,7 +1576,7 @@ Namespace MobileWS2BeanService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://sevice.webservice.ejbsss/", ResponseNamespace:="http://sevice.webservice.ejbsss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("", RequestNamespace:="http://service.webservice.sss/", ResponseNamespace:="http://service.webservice.sss/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
         Public Function getSalaryLoanBalance(ByVal authToken As String, ByVal tranToken As String, ByVal pseudoNo As String) As <System.Xml.Serialization.XmlElementAttribute("return")> salaryLoanStatus
             Dim results() As Object = Me.Invoke("getSalaryLoanBalance", New Object() {authToken, tranToken, pseudoNo})
             Return CType(results(0),salaryLoanStatus)
@@ -1530,7 +1626,7 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class webResponse
         
         Private firstNameField As String
@@ -1630,7 +1726,7 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class sicknessStatus
         
         Private processFlagField As String
@@ -1743,7 +1839,7 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class maternityStatus
         
         Private matAmountApprovedField As String
@@ -1856,7 +1952,7 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class disabilityStatus
         
         Private amountOfBenefitField As String
@@ -1943,7 +2039,7 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class retirementStatus
         
         Private amountOfBenefitField As String
@@ -2030,7 +2126,7 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class ecMedStatus
         
         Private amountOfBenefitField As String
@@ -2117,7 +2213,7 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class salaryLoanStatus
         
         Private loanBalanceField As String
@@ -2191,7 +2287,7 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class contributionStatus
         
         Private appMonthOfLastContriPostedField As String
@@ -2252,7 +2348,7 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class employer
         
         Private employerNameField As String
@@ -2326,7 +2422,7 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class contactInfoAdress
         
         Private emailField As String
@@ -2465,107 +2561,7 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
-    Partial Public Class webTransactionResponse
-        
-        Private expirationDateField As String
-        
-        Private processFlagField As String
-        
-        Private pseudoNoField As String
-        
-        Private returnMessageField As String
-        
-        Private ssnumField As String
-        
-        Private transactionNoField As String
-        
-        Private transactionTokenField As String
-        
-        '''<remarks/>
-        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
-        Public Property expirationDate() As String
-            Get
-                Return Me.expirationDateField
-            End Get
-            Set
-                Me.expirationDateField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
-        Public Property processFlag() As String
-            Get
-                Return Me.processFlagField
-            End Get
-            Set
-                Me.processFlagField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
-        Public Property pseudoNo() As String
-            Get
-                Return Me.pseudoNoField
-            End Get
-            Set
-                Me.pseudoNoField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
-        Public Property returnMessage() As String
-            Get
-                Return Me.returnMessageField
-            End Get
-            Set
-                Me.returnMessageField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
-        Public Property ssnum() As String
-            Get
-                Return Me.ssnumField
-            End Get
-            Set
-                Me.ssnumField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
-        Public Property transactionNo() As String
-            Get
-                Return Me.transactionNoField
-            End Get
-            Set
-                Me.transactionNoField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
-        Public Property transactionToken() As String
-            Get
-                Return Me.transactionTokenField
-            End Get
-            Set
-                Me.transactionTokenField = value
-            End Set
-        End Property
-    End Class
-    
-    '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0"),  _
-     System.SerializableAttribute(),  _
-     System.Diagnostics.DebuggerStepThroughAttribute(),  _
-     System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class country
         
         Private country_cdField As String
@@ -2626,7 +2622,7 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class municipality
         
         Private barangay_cdField As String
@@ -2739,7 +2735,7 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class province
         
         Private city_mun_cdField As String
@@ -2826,7 +2822,7 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class actualPremiumsSummary
         
         Private processFlagField As String
@@ -2926,7 +2922,7 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class actualPremiums
         
         Private aprPremiumField As String
@@ -3143,7 +3139,7 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class mailingAddress
         
         Private barangayField As String
@@ -3282,7 +3278,7 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class salaryLoanApplicationResponse
         
         Private applicationDtField As String
@@ -3369,7 +3365,7 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class employerAddress
         
         Private addressField As String
@@ -3443,7 +3439,120 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
+    Partial Public Class memberType
+        
+        Private employerNameField As String
+        
+        Private employerSSNumberField As String
+        
+        Private erbrnField As String
+        
+        Private memberType1Field As String
+        
+        Private memberTypeCodeField As String
+        
+        Private processFlagField As String
+        
+        Private returnMessageField As String
+        
+        Private ssnumField As String
+        
+        '''<remarks/>
+        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
+        Public Property employerName() As String
+            Get
+                Return Me.employerNameField
+            End Get
+            Set
+                Me.employerNameField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
+        Public Property employerSSNumber() As String
+            Get
+                Return Me.employerSSNumberField
+            End Get
+            Set
+                Me.employerSSNumberField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
+        Public Property erbrn() As String
+            Get
+                Return Me.erbrnField
+            End Get
+            Set
+                Me.erbrnField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        <System.Xml.Serialization.XmlElementAttribute("memberType", Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
+        Public Property memberType1() As String
+            Get
+                Return Me.memberType1Field
+            End Get
+            Set
+                Me.memberType1Field = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
+        Public Property memberTypeCode() As String
+            Get
+                Return Me.memberTypeCodeField
+            End Get
+            Set
+                Me.memberTypeCodeField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
+        Public Property processFlag() As String
+            Get
+                Return Me.processFlagField
+            End Get
+            Set
+                Me.processFlagField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
+        Public Property returnMessage() As String
+            Get
+                Return Me.returnMessageField
+            End Get
+            Set
+                Me.returnMessageField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
+        Public Property ssnum() As String
+            Get
+                Return Me.ssnumField
+            End Get
+            Set
+                Me.ssnumField = value
+            End Set
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0"),  _
+     System.SerializableAttribute(),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class paymentRefNo
         
         Private authenticationTokenField As String
@@ -3543,7 +3652,107 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
+    Partial Public Class webTransactionResponse
+        
+        Private expirationDateField As String
+        
+        Private processFlagField As String
+        
+        Private pseudoNoField As String
+        
+        Private returnMessageField As String
+        
+        Private ssnumField As String
+        
+        Private transactionNoField As String
+        
+        Private transactionTokenField As String
+        
+        '''<remarks/>
+        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
+        Public Property expirationDate() As String
+            Get
+                Return Me.expirationDateField
+            End Get
+            Set
+                Me.expirationDateField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
+        Public Property processFlag() As String
+            Get
+                Return Me.processFlagField
+            End Get
+            Set
+                Me.processFlagField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
+        Public Property pseudoNo() As String
+            Get
+                Return Me.pseudoNoField
+            End Get
+            Set
+                Me.pseudoNoField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
+        Public Property returnMessage() As String
+            Get
+                Return Me.returnMessageField
+            End Get
+            Set
+                Me.returnMessageField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
+        Public Property ssnum() As String
+            Get
+                Return Me.ssnumField
+            End Get
+            Set
+                Me.ssnumField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
+        Public Property transactionNo() As String
+            Get
+                Return Me.transactionNoField
+            End Get
+            Set
+                Me.transactionNoField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
+        Public Property transactionToken() As String
+            Get
+                Return Me.transactionTokenField
+            End Get
+            Set
+                Me.transactionTokenField = value
+            End Set
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0"),  _
+     System.SerializableAttribute(),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class completeAddress
         
         Private foreignHomeField As String
@@ -3643,7 +3852,7 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class otherInformation
         
         Private coverageStatusField As String
@@ -3743,7 +3952,7 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class memberProfile
         
         Private bdayField As String
@@ -3869,7 +4078,7 @@ Namespace MobileWS2BeanService
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.webservice.sss/")>  _
     Partial Public Class branch
         
         Private areaCodeField As String
@@ -4043,119 +4252,6 @@ Namespace MobileWS2BeanService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0"),  _
-     System.SerializableAttribute(),  _
-     System.Diagnostics.DebuggerStepThroughAttribute(),  _
-     System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://sevice.webservice.ejbsss/")>  _
-    Partial Public Class memberType
-        
-        Private employerNameField As String
-        
-        Private employerSSNumberField As String
-        
-        Private erbrnField As String
-        
-        Private memberType1Field As String
-        
-        Private memberTypeCodeField As String
-        
-        Private processFlagField As String
-        
-        Private returnMessageField As String
-        
-        Private ssnumField As String
-        
-        '''<remarks/>
-        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
-        Public Property employerName() As String
-            Get
-                Return Me.employerNameField
-            End Get
-            Set
-                Me.employerNameField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
-        Public Property employerSSNumber() As String
-            Get
-                Return Me.employerSSNumberField
-            End Get
-            Set
-                Me.employerSSNumberField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
-        Public Property erbrn() As String
-            Get
-                Return Me.erbrnField
-            End Get
-            Set
-                Me.erbrnField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        <System.Xml.Serialization.XmlElementAttribute("memberType", Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
-        Public Property memberType1() As String
-            Get
-                Return Me.memberType1Field
-            End Get
-            Set
-                Me.memberType1Field = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
-        Public Property memberTypeCode() As String
-            Get
-                Return Me.memberTypeCodeField
-            End Get
-            Set
-                Me.memberTypeCodeField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
-        Public Property processFlag() As String
-            Get
-                Return Me.processFlagField
-            End Get
-            Set
-                Me.processFlagField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
-        Public Property returnMessage() As String
-            Get
-                Return Me.returnMessageField
-            End Get
-            Set
-                Me.returnMessageField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
-        Public Property ssnum() As String
-            Get
-                Return Me.ssnumField
-            End Get
-            Set
-                Me.ssnumField = value
-            End Set
-        End Property
-    End Class
-    
-    '''<remarks/>
     <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")>  _
     Public Delegate Sub connectCompletedEventHandler(ByVal sender As Object, ByVal e As connectCompletedEventArgs)
     
@@ -4178,33 +4274,6 @@ Namespace MobileWS2BeanService
             Get
                 Me.RaiseExceptionIfNecessary
                 Return CType(Me.results(0),webResponse)
-            End Get
-        End Property
-    End Class
-    
-    '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")>  _
-    Public Delegate Sub getMemberTypeCompletedEventHandler(ByVal sender As Object, ByVal e As getMemberTypeCompletedEventArgs)
-    
-    '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0"),  _
-     System.Diagnostics.DebuggerStepThroughAttribute(),  _
-     System.ComponentModel.DesignerCategoryAttribute("code")>  _
-    Partial Public Class getMemberTypeCompletedEventArgs
-        Inherits System.ComponentModel.AsyncCompletedEventArgs
-        
-        Private results() As Object
-        
-        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
-            MyBase.New(exception, cancelled, userState)
-            Me.results = results
-        End Sub
-        
-        '''<remarks/>
-        Public ReadOnly Property Result() As memberType
-            Get
-                Me.RaiseExceptionIfNecessary
-                Return CType(Me.results(0),memberType)
             End Get
         End Property
     End Class
@@ -4367,6 +4436,60 @@ Namespace MobileWS2BeanService
             Get
                 Me.RaiseExceptionIfNecessary
                 Return CType(Me.results(0),completeAddress)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")>  _
+    Public Delegate Sub maternityNotifEligibilityCompletedEventHandler(ByVal sender As Object, ByVal e As maternityNotifEligibilityCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class maternityNotifEligibilityCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As webResponse
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),webResponse)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")>  _
+    Public Delegate Sub maternityNotifSubmitCompletedEventHandler(ByVal sender As Object, ByVal e As maternityNotifSubmitCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class maternityNotifSubmitCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As webTransactionResponse
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),webTransactionResponse)
             End Get
         End Property
     End Class
@@ -5042,6 +5165,60 @@ Namespace MobileWS2BeanService
             Get
                 Me.RaiseExceptionIfNecessary
                 Return CType(Me.results(0),employerAddress())
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")>  _
+    Public Delegate Sub getMemberTypeCompletedEventHandler(ByVal sender As Object, ByVal e As getMemberTypeCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class getMemberTypeCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As memberType
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),memberType)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")>  _
+    Public Delegate Sub isMaternityNotifExistCompletedEventHandler(ByVal sender As Object, ByVal e As isMaternityNotifExistCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class isMaternityNotifExistCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As webResponse
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),webResponse)
             End Get
         End Property
     End Class

@@ -1097,6 +1097,7 @@
 
     Public Shared Function tokenDetailsResponse(ByVal sssNo As String) As SSSTokenGenerator.tokenDetailsResponse
         Dim tds As New SSSTokenGenerator.TokenDetailsService()
+        'tds.Url = UpdateCntctInfoTokenGenerator_URL
         Try
             Dim tdr As New SSSTokenGenerator.tokenDetailsRequest
             tdr.sssid = sssNo
@@ -1264,12 +1265,20 @@
     Private Shared localDBHost As String = "LAPTOP-NIBVC02K" '10.0.202.95
 
     Public Shared Function IsRunningInTestEnv(ByVal db_server As String) As Boolean
-        Select Case db_server
-            Case "10.0.6.191", "LAPTOP-NIBVC02K"
-                Return True
-            Case Else
-                Return False
-        End Select
+        If getPermanentURL.Contains("10.0.4.252:8888/sss-itservepp/") Then
+            Return False
+        ElseIf getPermanentURL.Contains("http://prs:7777/sss-ssitserve/") Then
+            Return False
+        Else
+            Return True
+        End If
+
+        'Select Case db_server
+        '    Case "10.0.6.191", "LAPTOP-NIBVC02K"
+        '        Return True
+        '    Case Else
+        '        Return False
+        'End Select
     End Function
 
     Public Shared Function Get_getContributionListPRN(ByRef cbo As ComboBox, ByRef ErrMsg As String) As Boolean

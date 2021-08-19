@@ -278,6 +278,7 @@ Public Class _frmSalaryLoanv2
             cboAccount.Enabled = False
             lblReminder.Visible = True
             lblReminder2.Visible = False
+            link2.Visible = False
         Else
             For Each memberBankAcct As SalaryLoan.memberBankAcct In memberBankAccts
                 cboAccount.Items.Add(String.Format("{0} {1} - {2}", memberBankAcct.bankCode.Trim, AccountTypeDesc(memberBankAcct.acctType), memberBankAcct.acctNumber))
@@ -291,6 +292,7 @@ Public Class _frmSalaryLoanv2
             End If
             lblReminder.Visible = False
             lblReminder2.Visible = True
+            link2.Visible = True
         End If
     End Sub
 

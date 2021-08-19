@@ -154,7 +154,7 @@
         End Property
 
         Public Function getMemberType(ByVal ssNum As String) As Short
-            Dim service As New MobileWS2BeanService.MobileWS2BeanService
+            Dim service As New MobileWS2BeanService.MobileWSBeanService
             service.Url = MobileWS2BeanService_URL
             Try
                 getMemberTypeResponseValue = service.getMemberType(MobileWS2BeanService_Token, wsUserName, ssNum)
@@ -171,7 +171,7 @@
         End Function
 
         Public Function getContactInfoAddress(ByVal ssNum As String) As Short
-            Dim service As New MobileWS2BeanService.MobileWS2BeanService
+            Dim service As New MobileWS2BeanService.MobileWSBeanService
             service.Url = MobileWS2BeanService_URL
             Try
                 getContactInfoAddressResponseValue = service.getContactInfoAddress(MobileWS2BeanService_Token, wsUserName, ssNum)
@@ -188,7 +188,7 @@
         End Function
 
         Public Function getLatestEmployer(ByVal ssNum As String, ByVal tranType As String) As Boolean
-            Dim service As New MobileWS2BeanService.MobileWS2BeanService
+            Dim service As New MobileWS2BeanService.MobileWSBeanService
             service.Url = MobileWS2BeanService_URL
             Try
                 getLatestEmployerResponse = service.getLatestEmployer(MobileWS2BeanService_Token, wsUserName, ssNum, tranType).ToList
@@ -202,7 +202,7 @@
         End Function
 
         Public Function getMultiEmployerAddress(ByVal employerSSNum As String) As Boolean
-            Dim service As New MobileWS2BeanService.MobileWS2BeanService
+            Dim service As New MobileWS2BeanService.MobileWSBeanService
             service.Url = MobileWS2BeanService_URL
             Try
                 getMultiEmployerAddressResponseValue = service.getMultiEmployerAddress(MobileWS2BeanService_Token, wsUserName, employerSSNum).ToList
@@ -219,10 +219,7 @@
                                                     ByVal loanMonth As String, ByVal averageMsc As String, ByVal totalBalance As String, ByVal serviceCharge As String, ByVal netLoan As String,
                                                     ByVal monthlyAmort As String, ByVal disbursementCode As String, ByVal bankCode As String, ByVal brstn As String, ByVal acctNo As String,
                                                     ByVal fundingBank As String, ByVal advanceInterest As String) As Boolean
-
-
-
-            Dim service As New MobileWS2BeanService.MobileWS2BeanService
+            Dim service As New MobileWS2BeanService.MobileWSBeanService
             service.Url = MobileWS2BeanService_URL
 
             Try
@@ -265,7 +262,7 @@
         End Function
 
         Public Function getEmployerAddressesSL(ByVal employerSSNumber As String) As Short
-            Dim service As New MobileWS2BeanService.MobileWS2BeanService
+            Dim service As New MobileWS2BeanService.MobileWSBeanService
             service.Url = MobileWS2BeanService_URL
             Try
                 getEmployerAddressesSLResponseValue = service.getEmployerAddressesSL(MobileWS2BeanService_Token, employerSSNumber).ToList
@@ -286,7 +283,7 @@
                                             ByVal advance18Months As String, ByVal bankBRSTN As String, ByVal acctNo As String, ByVal dateOfSeparation As String,
                                             ByVal retirementFlag As String, ByVal retirementAmount As String, ByVal appliedFrom As String, ByVal membershipStatus As String,
                                             ByVal employerSSNumber As String, ByVal employerERBR As String) As Boolean
-            Dim service As New MobileWS2BeanService.MobileWS2BeanService
+            Dim service As New MobileWS2BeanService.MobileWSBeanService
             service.Url = MobileWS2BeanService_URL
             Try
                 'Try

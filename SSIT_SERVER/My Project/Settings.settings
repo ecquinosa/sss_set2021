@@ -224,7 +224,7 @@
       <Value Profile="(Default)">http://10.0.4.252:3014/TokenGeneration/TokenDetailsPort</Value>
     </Setting>
     <Setting Name="SSIT_SERVER_MobileWS2BeanService_MobileWS2BeanService" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://wws.sss.gov.ph:80/MobileWS2Bean/MobileWS2BeanService</Value>
+      <Value Profile="(Default)">http://wws.sss.gov.ph:80/MobileWSBean/MobileWSBeanService</Value>
     </Setting>
     <Setting Name="SSIT_SERVER_EligibilityWebserviceImplService_EligibilityWebserviceImplService" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://ww8.sss.gov.ph:80/eligibwebservice/EligibilityWebserviceImplService</Value>

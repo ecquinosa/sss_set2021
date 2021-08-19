@@ -123,7 +123,8 @@ Public Class _frmMainMenu
         Catch ex As Exception
         End Try
 
-        getCurrVersionIE()
+        'getCurrVersionIE()
+        AddRemoveIEVersion(True)
 
         'added by edel to reset flags every open 01/18/2017
         editSettings(xml_Filename, xml_path, "CARD_DATA", "")
@@ -525,7 +526,8 @@ Public Class _frmMainMenu
                         'btnRegistration.Visible = True
                         'btnInquiry.Visible = True
                         'btnLoan.Visible = True
-                        'Panel31.Visible = False
+                        Panel31.Visible = False
+                        Panel28.Visible = False
                         'Panel29.Visible = True
                         'Panel26.Visible = True
 
@@ -549,7 +551,8 @@ Public Class _frmMainMenu
                         'btnLoan.Visible = False
 
                         'ACOP menu. disabled by edel as advised by Ms. Jenny/ Ms. Myla 06/20/2018
-                        'Panel31.Visible = True
+                        Panel31.Visible = True
+                        Panel28.Visible = True
 
                         'Panel29.Visible = False
                         'Panel26.Visible = False
@@ -2766,6 +2769,7 @@ Public Class _frmMainMenu
 
     Private Sub _frmMainMenu_FormClosed(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
         Try
+            AddRemoveIEVersion(false)
 
             printTag = 0
             Dim getbranchCoDE As String = db.putSingleValue("select BRANCH_CD from SSINFOTERMBR where BRANCH_NM = '" & kioskBranch & "'")
@@ -5812,17 +5816,31 @@ Public Class _frmMainMenu
         End If
     End Function
 
-    Private Sub getCurrVersionIE()
-        'revised by edel on Sept 20, 2019. to handle ie 11 requirement()
-        Dim BrowserKeyPath As String = "\SOFTWARE\Microsoft\Internet Explorer\MAIN\FeatureControl\FEATURE_BROWSER_EMULATION"
-        Dim basekey As String = Microsoft.Win32.Registry.CurrentUser.ToString
-        Dim value As Int32
+    'Private Sub getCurrVersionIE()
+    '    'revised by edel on Sept 20, 2019. to handle ie 11 requirement()
+    '    Dim BrowserKeyPath As String = Microsoft.Win32.Registry.CurrentUser.ToString & "\SOFTWARE\Microsoft\Internet Explorer\MAIN\FeatureControl\FEATURE_BROWSER_EMULATION"
+    '    'Dim basekey As String = Microsoft.Win32.Registry.CurrentUser.ToString
+    '    Dim value As Int32
+    '    Dim thisAppsName As String = "*"
+
+    '    value = "11001"
+
+    '    'Microsoft.Win32.Registry.SetValue(Microsoft.Win32.Registry.CurrentUser.ToString & BrowserKeyPath, "*", value, Microsoft.Win32.RegistryValueKind.DWord)
+    '    Microsoft.Win32.Registry.SetValue(BrowserKeyPath, "*", value, Microsoft.Win32.RegistryValueKind.DWord)
+    'End Sub
+
+    Public Sub AddRemoveIEVersion(ByVal isAdd As Boolean)
+        Dim BrowserKeyPath As String = Microsoft.Win32.Registry.CurrentUser.ToString & "\SOFTWARE\Microsoft\Internet Explorer\MAIN\FeatureControl\FEATURE_BROWSER_EMULATION"
         Dim thisAppsName As String = "*"
+        Dim value As Int32 = "11001"
 
-        value = "11001"
-
-        Microsoft.Win32.Registry.SetValue(Microsoft.Win32.Registry.CurrentUser.ToString & BrowserKeyPath,
-                          "*", value, Microsoft.Win32.RegistryValueKind.DWord)
+        If isAdd Then
+            Microsoft.Win32.Registry.SetValue(BrowserKeyPath, thisAppsName, value, Microsoft.Win32.RegistryValueKind.DWord)
+        Else
+            Dim key As Microsoft.Win32.RegistryKey
+            key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\Microsoft\Internet Explorer\MAIN\FeatureControl\FEATURE_BROWSER_EMULATION", True)
+            key.DeleteValue(thisAppsName)
+        End If
     End Sub
 
     Public Sub PopulateWebservicesLinks()
@@ -5842,7 +5860,7 @@ Public Class _frmMainMenu
                 UpdateCntctInfoService_URL = rw("UpdateCntctInfoService_URL").ToString.Trim
                 UpdateCntctInfoService_Token = rw("UpdateCntctInfoService_Token").ToString.Trim
                 UpdateCntctInfoService_SessionToken = UpdateCntctInfoService_Token
-
+                UpdateCntctInfoTokenGenerator_URL = rw("UpdateCntctInfoTokenGenerator_URL").ToString.Trim
 
                 EligibilityWebserviceImplService_URL = rw("EligibilityWebserviceImplService_URL").ToString.Trim
                 EligibilityWebserviceImplService_Token = rw("EligibilityWebserviceImplService_Token").ToString.Trim

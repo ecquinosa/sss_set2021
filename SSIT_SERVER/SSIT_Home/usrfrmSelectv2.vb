@@ -92,7 +92,10 @@ Public Class usrfrmSelectv2
         ''per email by Ms. Farrah on May 19, 2021 re: SET UAT scripts, disable for time being the sss website
         'CheckTerminalConnections(2)
 
-        SharedFunction.ShowInfoMessage("This service is temporary unavailable.".ToUpper)
+        'SharedFunction.ShowInfoMessage("This service is temporarily unavailable.".ToUpper)
+        frmSSSWebsiteMsg.IsProceed = False
+        frmSSSWebsiteMsg.ShowDialog()
+        If frmSSSWebsiteMsg.IsProceed Then CheckTerminalConnections(2)
     End Sub
 
     Dim worker As New System.ComponentModel.BackgroundWorker

@@ -101,6 +101,8 @@ Module modSettings
     Public UpdateCntctInfoService_Token As String = "" '"ofqgw5gDomKEwY1n3uT1FsF5B6GLMdjNYE1zvwhARFo6wQ2iKi"
     Public UpdateCntctInfoService_SessionToken As String = "" 'UpdateCntctInfoService_Token
 
+    Public UpdateCntctInfoTokenGenerator_URL As String = "" 'http://10.0.4.252:3014/TokenGeneration/TokenDetailsPort?WSDL
+
     Public EligibilityWebserviceImplService_URL As String = "" '"https://ww8.sss.gov.ph/eligibwebservice/EligibilityWebserviceImplService?wsdl"
     Public EligibilityWebserviceImplService_Token As String = "" '"WESHJZ1Q103017102439"
     Public EligibilityWebserviceImplService_SessionToken As String = ""

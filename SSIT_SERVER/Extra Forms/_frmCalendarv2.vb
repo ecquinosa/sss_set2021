@@ -209,12 +209,22 @@
     Private Sub btnMonthPrev_Click(sender As Object, e As EventArgs) Handles btnMonthPrev.Click
         Dim curMonth As Short = curDate.Month
         If curMonth <> 1 Then
+            'Dim _curDay As Integer = curDate.Day
+            'Dim _curMonth As Integer = curMonth - 1
+            'Dim tempDateStr As String = String.Format("{0}/{1}/{2}", _curMonth, _curDay, Now.Year)
+            'Do While Not IsDate(tempDateStr)
+            '    _curDay -= 1
+            '    tempDateStr = String.Format("{0}/{1}/{2}", _curMonth, _curDay, Now.Year)
+            'Loop
+
+            ''If Not IsDate(tempDateStr) Then tempDateStr = String.Format("{0}/{1}/{2}", curMonth - 1, curDate.Day - 1, Now.Year)
+
             Dim _curDay As Integer = curDate.Day
             Dim _curMonth As Integer = curMonth - 1
-            Dim tempDateStr As String = String.Format("{0}/{1}/{2}", _curMonth, _curDay, Now.Year)
+            Dim tempDateStr As String = String.Format("{0}/{1}/{2}", _curMonth, _curDay, CInt(lblYear.Text))
             Do While Not IsDate(tempDateStr)
                 _curDay -= 1
-                tempDateStr = String.Format("{0}/{1}/{2}", _curMonth, _curDay, Now.Year)
+                tempDateStr = String.Format("{0}/{1}/{2}", _curMonth, _curDay, CInt(lblYear.Text))
             Loop
 
             'If Not IsDate(tempDateStr) Then tempDateStr = String.Format("{0}/{1}/{2}", curMonth - 1, curDate.Day - 1, Now.Year)
@@ -231,12 +241,21 @@
     Private Sub btnMonthNext_Click(sender As Object, e As EventArgs) Handles btnMonthNext.Click
         Dim curMonth As Short = curDate.Month
         If curMonth <> 12 Then
+            'Dim _curDay As Integer = curDate.Day
+            'Dim _curMonth As Integer = curMonth + 1
+            'Dim tempDateStr As String = String.Format("{0}/{1}/{2}", _curMonth, _curDay, Now.Year)
+            'Do While Not IsDate(tempDateStr)
+            '    _curDay -= 1
+            '    tempDateStr = String.Format("{0}/{1}/{2}", _curMonth, _curDay, Now.Year)
+            'Loop
+            ''If Not IsDate(tempDateStr) Then tempDateStr = String.Format("{0}/{1}/{2}", curMonth + 1, curDate.Day - 1, Now.Year)
+
             Dim _curDay As Integer = curDate.Day
             Dim _curMonth As Integer = curMonth + 1
-            Dim tempDateStr As String = String.Format("{0}/{1}/{2}", _curMonth, _curDay, Now.Year)
+            Dim tempDateStr As String = String.Format("{0}/{1}/{2}", _curMonth, _curDay, CInt(lblYear.Text))
             Do While Not IsDate(tempDateStr)
                 _curDay -= 1
-                tempDateStr = String.Format("{0}/{1}/{2}", _curMonth, _curDay, Now.Year)
+                tempDateStr = String.Format("{0}/{1}/{2}", _curMonth, _curDay, CInt(lblYear.Text))
             Loop
             'If Not IsDate(tempDateStr) Then tempDateStr = String.Format("{0}/{1}/{2}", curMonth + 1, curDate.Day - 1, Now.Year)
 
@@ -251,7 +270,7 @@
 
     Private Sub btnYearPrev_Click(sender As Object, e As EventArgs) Handles btnYearPrev.Click
         Dim tempDate As Date = CDate(String.Format("{0}/{1}/{2}", curDate.Month, curDate.Day, curDate.Year - 1))
-        If IsValidDate(tempDate) Then
+        If IsValidYear(tempDate, tempDate, False) Then
             curDate = tempDate
             BindCalendar()
         End If
@@ -259,7 +278,7 @@
 
     Private Sub btnYearNext_Click(sender As Object, e As EventArgs) Handles btnYearNext.Click
         Dim tempDate As Date = CDate(String.Format("{0}/{1}/{2}", curDate.Month, curDate.Day, curDate.Year + 1))
-        If IsValidDate(tempDate) Then
+        If IsValidYear(tempDate, tempDate) Then
             curDate = tempDate
             BindCalendar()
         End If
@@ -269,6 +288,26 @@
         Dim bln As Boolean = False
         If validDateStart = Nothing Then Return True
         If value.Date >= validDateStart.Date And value.Date <= validDateEnd.Date Then
+            bln = True
+        Else
+            bln = False
+        End If
+
+        Return bln
+    End Function
+
+    Private Function IsValidYear(ByVal value As Date, ByRef tempDate As Date, Optional isAdd As Boolean = True) As Boolean
+        Dim bln As Boolean = False
+        If validDateStart = Nothing Then Return True
+        If value.Date.Year >= validDateStart.Date.Year And value.Date.Year <= validDateEnd.Date.Year Then
+            If Not IsValidDate(value) Then
+                If Not isAdd Then
+                    tempDate = CDate(String.Format("{0}/{1}/{2}", validDateStart.Month, curDate.Day, validDateStart.Date.Year))
+                Else
+                    tempDate = CDate(String.Format("{0}/{1}/{2}", validDateEnd.Month, curDate.Day, validDateEnd.Date.Year))
+                End If
+            End If
+
             bln = True
         Else
             bln = False

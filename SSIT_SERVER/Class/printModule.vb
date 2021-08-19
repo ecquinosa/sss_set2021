@@ -448,6 +448,21 @@ Public Class printModule
         End If
     End Function
 
+    'Public Function GetCoverageStatusv3(ByVal webBrowserPath) As String
+    Public Function GetCoverageStatusv3(ByVal webBrowserPath) As String
+        sHtlm = webBrowserPath 'webBrowserPath.Documenttext
+
+        Dim varPosition As Integer = sHtlm.IndexOf("Membership Type")
+
+        If varPosition <> -1 Then
+            Dim arr1() As String = sHtlm.Substring(varPosition, 200).Split(">")
+
+            Return arr1(2).Replace("</td", "").Replace("&nbsp", "").Replace(";", "").Trim
+        Else
+            Return CoveredStatus
+        End If
+    End Function
+
     '-------------- Record Location --------------------
     Public Function GetRecordLocation(ByVal webBrowserPath) As String
         'On Error GoTo errHdlr
@@ -608,49 +623,64 @@ Public Class printModule
 
     '-------------- Date of Birth --------------------
     Public Function GetDateBith(ByVal webBrowserPath) As String
-        'On Error GoTo errHdlr
-        Dim Tmp() As String
-        Dim ssStatus() As String
-        Dim sHtlm
-        Dim getssStatus As String
-        Dim i As Integer
-        Dim nme As Integer
-        sHtlm = webBrowserPath.Documenttext
-        Tmp = Split(sHtlm, Chr(13))
-        For i = LBound(Tmp) To UBound(Tmp)
-            If InStr(1, LCase(Tmp(i)), LCase("dob")) > 0 Then
-                ssStatus = Split(Tmp(i + 1), ">")
-                nme = ssStatus.Length - 2
-                getssStatus = ssStatus(nme)
-                ssStatus = Split(getssStatus, "</td")
-                nme = ssStatus.Length - 2
-                GetDateBith = ssStatus(nme)
-                GetDateBith = GetDateBith.Trim
+        ''added on Aug16,2021 due to error in production
+        'Dim dateOfBirth As String = ""
 
-                'GetHeaderForm = Left(headerName(1), Len(headerName(1)) + 9)
-                'GetHeaderForm = StrConv(GetHeaderForm, vbProperCase)
-                Exit Function
+        ''On Error GoTo errHdlr
+        'Dim Tmp() As String
+        'Dim ssStatus() As String
+        'Dim sHtlm
+        'Dim getssStatus As String
+        'Dim i As Integer
+        'Dim nme As Integer
+        'sHtlm = webBrowserPath.Documenttext
+        'Tmp = Split(sHtlm, Chr(13))
+        'For i = LBound(Tmp) To UBound(Tmp)
+        '    If InStr(1, LCase(Tmp(i)), LCase("dob")) > 0 Then
+        '        ssStatus = Split(Tmp(i + 1), ">")
+        '        nme = ssStatus.Length - 2
+        '        getssStatus = ssStatus(nme)
+        '        ssStatus = Split(getssStatus, "</td")
+        '        nme = ssStatus.Length - 2
+        '        dateOfBirth = ssStatus(nme)
+        '        dateOfBirth = dateOfBirth.Trim
 
-            End If
-        Next
-        'Exit Function
-        'errHdlr:
-        'logs
-        Return GetDateBith
+        '        'GetHeaderForm = Left(headerName(1), Len(headerName(1)) + 9)
+        '        'GetHeaderForm = StrConv(GetHeaderForm, vbProperCase)
+        '        Exit Function
+
+        '    End If
+        'Next
+        ''Exit Function
+        ''errHdlr:
+        ''logs
+
+        ''added on Aug16, 2021 due to error in production
+        'If dateOfBirth = "" Then
+        '    Dim dobLine As String = Tmp(62).Replace(vbLf, "").Trim
+        '    Dim startIndex As Integer = dobLine.IndexOf(">")
+        '    Dim endIndex As Integer = dobLine.IndexOf("<", startIndex)
+        '    dateOfBirth = dobLine.Substring(startIndex + 1, (endIndex - startIndex) - 1).Trim
+        '    GetDateBith = dateOfBirth
+        'End If
+
+        'Return GetDateBith
+
+        Return GetDateBirth2(webBrowserPath)
     End Function
 
     Public Function GetDateBirth2(ByVal webBrowserPath) As String
 
         Dim Tmp() As String
-        Dim dateBirth() As String
+        Dim arr() As String
         Dim sHtlm
         Dim i As Integer
         sHtlm = webBrowserPath.Documenttext
         Tmp = Split(sHtlm, Chr(13))
         For i = LBound(Tmp) To UBound(Tmp)
             If InStr(1, LCase(Tmp(i)), LCase("Date of Birth")) > 0 Then
-                dateBirth = Split(Tmp(i + 1), ">")
-                GetDateBirth2 = Left(dateBirth(1), Len(dateBirth(1)) - 4)
+                arr = Split(Tmp(i + 1), ">")
+                GetDateBirth2 = Left(arr(1), Len(arr(1)) - 4)
                 GetDateBirth2 = GetDateBirth2.Trim
                 Exit Function
             End If
@@ -661,33 +691,69 @@ Public Class printModule
 
     '-------------- Date Coverage --------------------
     Public Function GetDateCoverage(ByVal webBrowserPath) As String
-        'On Error GoTo errHdlr
+        ''added on Aug16,2021 due to error in production
+        'Dim dateOfCoverage As String = ""
+
+        ''On Error GoTo errHdlr
+        'Dim Tmp() As String
+        'Dim ssStatus() As String
+        'Dim sHtlm
+        'Dim getssStatus As String
+        'Dim i As Integer
+        'Dim nme As Integer
+        'sHtlm = webBrowserPath.Documenttext
+        'Tmp = Split(sHtlm, Chr(13))
+        'For i = LBound(Tmp) To UBound(Tmp)
+        '    If InStr(1, LCase(Tmp(i)), LCase("docov")) > 0 Then
+        '        ssStatus = Split(Tmp(i + 1))
+        '        nme = ssStatus.Length - 1
+        '        getssStatus = ssStatus(nme)
+        '        ssStatus = Split(getssStatus, "</td")
+        '        nme = ssStatus.Length - 2
+        '        GetDateCoverage = ssStatus(nme)
+        '        GetDateCoverage = GetDateCoverage.Trim
+        '        'GetHeaderForm = Left(headerName(1), Len(headerName(1)) + 9)
+        '        'GetHeaderForm = StrConv(GetHeaderForm, vbProperCase)
+        '        Exit Function
+        '    End If
+        'Next
+        ''Exit Function
+        ''errHdlr:
+        ''logs
+
+        ''added on Aug16,2021 due to error in production
+        'If dateOfCoverage = "" Then
+        '    Dim dobLine As String = Tmp(71).Replace(vbLf, "").Trim
+        '    Dim startIndex As Integer = dobLine.IndexOf(">")
+        '    Dim endIndex As Integer = dobLine.IndexOf("<", startIndex)
+        '    dateOfCoverage = dobLine.Substring(startIndex + 1, (endIndex - startIndex) - 1).Trim
+        '    GetDateCoverage = dateOfCoverage
+        'End If
+
+        'Return GetDateCoverage
+
+        Return GetDateCoveragev2(webBrowserPath)
+    End Function
+
+    '-------------- Date Coverage --------------------
+    Public Function GetDateCoveragev2(ByVal webBrowserPath) As String
+
         Dim Tmp() As String
-        Dim ssStatus() As String
+        Dim arr() As String
         Dim sHtlm
-        Dim getssStatus As String
         Dim i As Integer
-        Dim nme As Integer
         sHtlm = webBrowserPath.Documenttext
         Tmp = Split(sHtlm, Chr(13))
         For i = LBound(Tmp) To UBound(Tmp)
-            If InStr(1, LCase(Tmp(i)), LCase("docov")) > 0 Then
-                ssStatus = Split(Tmp(i + 1))
-                nme = ssStatus.Length - 1
-                getssStatus = ssStatus(nme)
-                ssStatus = Split(getssStatus, "</td")
-                nme = ssStatus.Length - 2
-                GetDateCoverage = ssStatus(nme)
-                GetDateCoverage = GetDateCoverage.Trim
-                'GetHeaderForm = Left(headerName(1), Len(headerName(1)) + 9)
-                'GetHeaderForm = StrConv(GetHeaderForm, vbProperCase)
+            If InStr(1, LCase(Tmp(i)), LCase("Date of Coverage")) > 0 Then
+                arr = Split(Tmp(i + 1), ">")
+                GetDateCoveragev2 = Left(arr(1), Len(arr(1)) - 4)
+                GetDateCoveragev2 = GetDateCoveragev2.Trim
                 Exit Function
             End If
         Next
-        'Exit Function
-        'errHdlr:
-        'logs
-        Return GetDateCoverage
+
+        Return GetDateCoveragev2
     End Function
 
     '-------------- Total Number of Contributions --------------------

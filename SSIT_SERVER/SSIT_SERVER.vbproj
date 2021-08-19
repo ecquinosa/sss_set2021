@@ -311,6 +311,12 @@
     <Compile Include="Menu Form\ChangePIN\_frmChangePIN.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Menu Form\frmSSSWebsiteMsg.Designer.vb">
+      <DependentUpon>frmSSSWebsiteMsg.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Menu Form\frmSSSWebsiteMsg.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Menu Form\Maternityv2\_frmEnhanceMaternityNotif.Designer.vb">
       <DependentUpon>_frmEnhanceMaternityNotif.vb</DependentUpon>
     </Compile>
@@ -862,6 +868,9 @@
     <EmbeddedResource Include="Menu Form\ChangePIN\_frmChangePIN.resx">
       <DependentUpon>_frmChangePIN.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Menu Form\frmSSSWebsiteMsg.resx">
+      <DependentUpon>frmSSSWebsiteMsg.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Menu Form\Maternityv2\_frmEnhanceMaternityNotif.resx">
       <DependentUpon>_frmEnhanceMaternityNotif.vb</DependentUpon>
     </EmbeddedResource>
@@ -1177,11 +1186,11 @@
     <None Include="Web References\MobileWS2BeanService\memberType.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\MobileWS2BeanService\MobileWS2BeanService.wsdl" />
-    <None Include="Web References\MobileWS2BeanService\MobileWS2BeanService.xsd">
+    <None Include="Web References\MobileWS2BeanService\MobileWSBeanService.wsdl" />
+    <None Include="Web References\MobileWS2BeanService\MobileWSBeanService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Web References\MobileWS2BeanService\MobileWS2BeanService0.xsd">
+    <None Include="Web References\MobileWS2BeanService\MobileWSBeanService0.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Web References\MobileWS2BeanService\municipality.datasource">
@@ -1562,10 +1571,10 @@
       <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>SSIT_SERVER_DisclosureWebserviceImplService_DisclosureWebserviceImplService</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="https://wws.sss.gov.ph/MobileWS2Bean/MobileWS2BeanService%3fwsdl">
+    <WebReferenceUrl Include="http://wws.sss.gov.ph:80/MobileWSBean/MobileWSBeanService%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\MobileWS2BeanService\</RelPath>
-      <UpdateFromURL>https://wws.sss.gov.ph/MobileWS2Bean/MobileWS2BeanService%3fwsdl</UpdateFromURL>
+      <UpdateFromURL>http://wws.sss.gov.ph:80/MobileWSBean/MobileWSBeanService%3fwsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

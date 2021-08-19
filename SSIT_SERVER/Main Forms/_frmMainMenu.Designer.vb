@@ -184,9 +184,9 @@ Partial Class _frmMainMenu
         Me.splitContainerControl = New System.Windows.Forms.SplitContainer()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.TabControl1 = New DevComponents.DotNetBar.TabControl()
+        Me.pnlWebContactInfo = New System.Windows.Forms.Panel()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.myTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.pnlWebContactInfo = New System.Windows.Forms.Panel()
         Me.pnlWeb.SuspendLayout()
         Me.pnlMenuWithDeathClaims.SuspendLayout()
         Me.Panel58.SuspendLayout()
@@ -1415,10 +1415,10 @@ Partial Class _frmMainMenu
         Me.TabControlPanel2.Controls.Add(Me.Panel6)
         Me.TabControlPanel2.Controls.Add(Me.pnlMenuWithDeathClaims)
         Me.TabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControlPanel2.Location = New System.Drawing.Point(0, 85)
+        Me.TabControlPanel2.Location = New System.Drawing.Point(0, 45)
         Me.TabControlPanel2.Name = "TabControlPanel2"
         Me.TabControlPanel2.Padding = New System.Windows.Forms.Padding(1)
-        Me.TabControlPanel2.Size = New System.Drawing.Size(262, 782)
+        Me.TabControlPanel2.Size = New System.Drawing.Size(262, 822)
         Me.TabControlPanel2.Style.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(102, Byte), Integer))
         Me.TabControlPanel2.Style.BackColor2.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(102, Byte), Integer))
         Me.TabControlPanel2.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine
@@ -1922,6 +1922,7 @@ Partial Class _frmMainMenu
         Me.TabControlPanel1.Style.GradientAngle = 90
         Me.TabControlPanel1.TabIndex = 1
         Me.TabControlPanel1.TabItem = Me.TabItem1
+        Me.TabControlPanel1.Visible = False
         '
         'pnlChangeUmidPin
         '
@@ -2355,8 +2356,8 @@ Partial Class _frmMainMenu
         Me.TabControl1.ColorScheme.TabPanelBackground = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(102, Byte), Integer))
         Me.TabControl1.ColorScheme.TabPanelBackground2 = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(102, Byte), Integer))
         Me.TabControl1.ColorScheme.TabPanelBorder = System.Drawing.Color.Transparent
-        Me.TabControl1.Controls.Add(Me.TabControlPanel1)
         Me.TabControl1.Controls.Add(Me.TabControlPanel2)
+        Me.TabControl1.Controls.Add(Me.TabControlPanel1)
         Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl1.FixedTabSize = New System.Drawing.Size(156, 40)
         Me.TabControl1.Font = New System.Drawing.Font("Segoe UI", 12.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -2373,6 +2374,13 @@ Partial Class _frmMainMenu
         Me.TabControl1.Tabs.Add(Me.TabItem2)
         Me.TabControl1.Text = "TabControl1"
         '
+        'pnlWebContactInfo
+        '
+        Me.pnlWebContactInfo.Location = New System.Drawing.Point(845, 128)
+        Me.pnlWebContactInfo.Name = "pnlWebContactInfo"
+        Me.pnlWebContactInfo.Size = New System.Drawing.Size(200, 100)
+        Me.pnlWebContactInfo.TabIndex = 0
+        '
         'Panel1
         '
         Me.Panel1.Controls.Add(Me.Panel3)
@@ -2386,13 +2394,6 @@ Partial Class _frmMainMenu
         'myTimer
         '
         Me.myTimer.Interval = 1000
-        '
-        'pnlWebContactInfo
-        '
-        Me.pnlWebContactInfo.Location = New System.Drawing.Point(845, 128)
-        Me.pnlWebContactInfo.Name = "pnlWebContactInfo"
-        Me.pnlWebContactInfo.Size = New System.Drawing.Size(200, 100)
-        Me.pnlWebContactInfo.TabIndex = 0
         '
         '_frmMainMenu
         '

@@ -38,68 +38,6 @@ Public Class _frmUserAuthentication
             lblBranch.Text = kioskBranch
             lblTerminalNo.Text = kioskID
 
-            'Dim result As Integer = xtd.checkFileType
-
-            'If result = 1 Then
-            '    lblName.Text = _frmMainMenu.getFname
-
-            '    tempSSSHeader = xtd.getCRN
-            '    If tempSSSHeader = "" Then
-
-            '    Else
-            '        tempSSSHeader = tempSSSHeader.Insert(2, "-")
-            '        tempSSSHeader = tempSSSHeader.Insert(10, "-")
-            '    End If
-
-            '    lblSSSNo.Text = tempSSSHeader
-            '    lblCRNNum.Text = ""
-
-            '    Dim fname As String = printF.GetFirstName(_frmWebBrowser.WebBrowser1)
-            '    Dim mname As String = printF.GetMiddleName(_frmWebBrowser.WebBrowser1)
-            '    Dim lname As String = printF.GetLastName(_frmWebBrowser.WebBrowser1)
-            '    Dim fullname As String = lname & " " & fname & " " & mname
-            '    lblName.Text = fullname.Replace("�", ChrW(209))
-            '    lblReferenceNo.Text = ""
-            '    Label4.Visible = False
-            '    Label4.Visible = False
-            '    lblReferenceNo.Visible = False
-            'ElseIf result = 2 Then
-
-            '    tempSSSHeader = SSStempFile
-            '    If tempSSSHeader = "" Then
-
-            '    Else
-            '        tempSSSHeader = tempSSSHeader.Insert(2, "-")
-            '        tempSSSHeader = tempSSSHeader.Insert(10, "-")
-            '    End If
-
-            '    lblSSSNo.Text = tempSSSHeader
-            '    lblCRNNum.Text = xtd.getCRN
-            '    lblReferenceNo.Text = xtd.getCRN
-
-
-            '    Dim fname As String = printF.GetFirstName(_frmWebBrowser.WebBrowser1)
-            '    Dim mname As String = printF.GetMiddleName(_frmWebBrowser.WebBrowser1)
-            '    Dim lname As String = printF.GetLastName(_frmWebBrowser.WebBrowser1)
-            '    Dim fullname As String = lname & " " & fname & " " & mname
-            '    fullname = fullname.Replace("�", ChrW(209))
-            '    If xtd.getFullname = "" Or xtd.getFullname = Nothing Then
-            '        lblName.Text = fullname
-            '    Else
-            '        lblName.Text = xtd.getFullname
-
-            '    End If
-
-            '    Label4.Visible = False
-
-            '    lblReferenceNo.Visible = False
-            'End If
-
-            ''  Dim bdate As String = printF.GetDateBith(_frmWebBrowser.WebBrowser1)
-            'lblDateofBirth.Text = bdate
-            'Dim coverageStatus As String = printF.GetDateCoverage(_frmWebBrowser.WebBrowser1)
-            'lblDateofCoverage.Text = coverageStatus
-
             Dim getbranchCoDE As String = db.putSingleValue("select BRANCH_CD from SSINFOTERMBR where BRANCH_NM = '" & kioskBranch & "'")
             Dim getkiosk_cluster As String = db.putSingleValue("select CLSTR_CD from SSINFOTERMCLSTR where CLSTR_NM = '" & kioskCluster & "'")
             Dim getkiosk_group As String = db.putSingleValue("select GROUP_CD from SSINFOTERMGROUP where GROUP_NM = '" & kioskGroup & "'")

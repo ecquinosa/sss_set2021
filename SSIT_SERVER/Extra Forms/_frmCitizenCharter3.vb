@@ -130,8 +130,8 @@ Public Class _frmCitizenCharter3
             'wb.ShowPropertiesDialog()
             If DOC_TYPE = 1 Then
                 Label36.Text = "SSS CITIZEN'S CHARTER"
-                'wb.Navigate(Application.StartupPath & "\charter\CITIZENS_CHARTER.pdf")
-                wb.Navigate(SharedFunction.ViewPDF(Application.StartupPath & "\charter\CITIZENS_CHARTER.pdf"))
+                wb.Navigate(Application.StartupPath & "\charter\CITIZENS_CHARTER.pdf")
+                'wb.Navigate(SharedFunction.ViewPDF(Application.StartupPath & "\charter\CITIZENS_CHARTER.pdf"))
                 'wb.Navigate(Application.StartupPath & "\viewPDF2.html")
             ElseIf DOC_TYPE = 2 Then
                 Label36.Text = "ONLINE DATA CHANGE REQUEST"

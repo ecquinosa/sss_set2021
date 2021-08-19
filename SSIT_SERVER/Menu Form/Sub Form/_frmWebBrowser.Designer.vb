@@ -44,6 +44,12 @@ Partial Class _frmWebBrowser
         Me.btnUP = New System.Windows.Forms.Button()
         Me.Panel11 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.txt1_X = New System.Windows.Forms.TextBox()
+        Me.txt1_Y = New System.Windows.Forms.TextBox()
+        Me.txt2_Y = New System.Windows.Forms.TextBox()
+        Me.txt2_X = New System.Windows.Forms.TextBox()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.PanelEx1.SuspendLayout()
@@ -57,6 +63,12 @@ Partial Class _frmWebBrowser
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.Button3)
+        Me.Panel1.Controls.Add(Me.Button2)
+        Me.Panel1.Controls.Add(Me.txt2_Y)
+        Me.Panel1.Controls.Add(Me.txt2_X)
+        Me.Panel1.Controls.Add(Me.txt1_Y)
+        Me.Panel1.Controls.Add(Me.txt1_X)
         Me.Panel1.Controls.Add(Me.Button1)
         Me.Panel1.Controls.Add(Me.btnTechnicalRetirementLoanStatusFinal)
         Me.Panel1.Controls.Add(Me.btnTechnicalRetirementLoanStatus)
@@ -65,8 +77,8 @@ Partial Class _frmWebBrowser
         Me.Panel1.Controls.Add(Me.Confst)
         Me.Panel1.Controls.Add(Me.btnTechnicalRetirement)
         Me.Panel1.Controls.Add(Me.lblDisclaimer)
-        Me.Panel1.Controls.Add(Me.btnLoanEligibility)
         Me.Panel1.Controls.Add(Me.WebBrowser1)
+        Me.Panel1.Controls.Add(Me.btnLoanEligibility)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
@@ -122,7 +134,7 @@ Partial Class _frmWebBrowser
         'deldt
         '
         Me.deldt.Font = New System.Drawing.Font("Verdana", 11.25!)
-        Me.deldt.Location = New System.Drawing.Point(437, 222)
+        Me.deldt.Location = New System.Drawing.Point(476, 283)
         Me.deldt.Name = "deldt"
         Me.deldt.Size = New System.Drawing.Size(102, 30)
         Me.deldt.TabIndex = 8
@@ -334,6 +346,58 @@ Partial Class _frmWebBrowser
         Me.Panel3.Size = New System.Drawing.Size(1078, 602)
         Me.Panel3.TabIndex = 3
         '
+        'txt1_X
+        '
+        Me.txt1_X.Location = New System.Drawing.Point(744, 399)
+        Me.txt1_X.Name = "txt1_X"
+        Me.txt1_X.Size = New System.Drawing.Size(100, 26)
+        Me.txt1_X.TabIndex = 12
+        Me.txt1_X.Visible = False
+        '
+        'txt1_Y
+        '
+        Me.txt1_Y.Location = New System.Drawing.Point(744, 431)
+        Me.txt1_Y.Name = "txt1_Y"
+        Me.txt1_Y.Size = New System.Drawing.Size(100, 26)
+        Me.txt1_Y.TabIndex = 13
+        Me.txt1_Y.Visible = False
+        '
+        'txt2_Y
+        '
+        Me.txt2_Y.Location = New System.Drawing.Point(871, 431)
+        Me.txt2_Y.Name = "txt2_Y"
+        Me.txt2_Y.Size = New System.Drawing.Size(100, 26)
+        Me.txt2_Y.TabIndex = 15
+        Me.txt2_Y.Visible = False
+        '
+        'txt2_X
+        '
+        Me.txt2_X.Location = New System.Drawing.Point(871, 399)
+        Me.txt2_X.Name = "txt2_X"
+        Me.txt2_X.Size = New System.Drawing.Size(100, 26)
+        Me.txt2_X.TabIndex = 14
+        Me.txt2_X.Visible = False
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(744, 474)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.TabIndex = 16
+        Me.Button2.Text = "Button2"
+        Me.Button2.UseVisualStyleBackColor = True
+        Me.Button2.Visible = False
+        '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(871, 474)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(75, 23)
+        Me.Button3.TabIndex = 17
+        Me.Button3.Text = "Button3"
+        Me.Button3.UseVisualStyleBackColor = True
+        Me.Button3.Visible = False
+        '
         '_frmWebBrowser
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 19.0!)
@@ -382,4 +446,10 @@ Partial Class _frmWebBrowser
     Friend WithEvents btnTechnicalRetirementLoanStatus As DevComponents.DotNetBar.ButtonX
     Friend WithEvents btnTechnicalRetirementLoanStatusFinal As DevComponents.DotNetBar.ButtonX
     Friend WithEvents Button1 As Button
+    Friend WithEvents txt2_Y As TextBox
+    Friend WithEvents txt2_X As TextBox
+    Friend WithEvents txt1_Y As TextBox
+    Friend WithEvents txt1_X As TextBox
+    Friend WithEvents Button3 As Button
+    Friend WithEvents Button2 As Button
 End Class

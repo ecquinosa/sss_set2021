@@ -357,6 +357,10 @@ Public Class _frmWebBrowser
                 '     userMovement = userMovement.Trim
 
                 Select Case userMovement
+                    Case link13, link14
+                        Confst.Location = New Point(437, 155)
+                        confend.Location = New Point(437, 200)
+                        deldt.Location = New Point(437, 200)
                     Case link15, link20
                         Confst.Location = New Point(553, 205)
                         confend.Location = New Point(553, 233)
@@ -3047,6 +3051,19 @@ Public Class _frmWebBrowser
         _frmCalendar.btncalsub.Visible = True
         _frmCalendar.lblConfineStart.Text = "Confinement Start"
         _frmCalendar.ShowDialog()
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        txt1_X.Text = Confst.Location.X
+        txt1_Y.Text = Confst.Location.Y
+        txt2_X.Text = confend.Location.X
+        txt2_Y.Text = confend.Location.Y
+        MessageBox.Show(userMovement)
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Confst.Location = New Point(CInt(txt1_X.Text), CInt(txt1_Y.Text))
+        confend.Location = New Point(CInt(txt2_X.Text), CInt(txt2_Y.Text))
     End Sub
 
     Private Sub Confst_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Confst.Click
