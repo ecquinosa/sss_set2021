@@ -22,8 +22,8 @@ Public Class _frmPRNApplication
             Dim ErrMsg As String = ""
 
             'revised during production because employee static information is different Aug19
-            'If Not SharedFunction.Get_getAllowedMemberTypeListPRN(cboMembershipType, printF.GetCoverageStatus_v2(_frmWebBrowser.WebBrowser1), ErrMsg) Then
-            If Not SharedFunction.Get_getAllowedMemberTypeListPRN(cboMembershipType, printF.GetCoverageStatusv3(_frmWebBrowser.WebBrowser1), ErrMsg) Then
+            If Not SharedFunction.Get_getAllowedMemberTypeListPRN(cboMembershipType, printF.GetCoverageStatus_v2(_frmWebBrowser.WebBrowser1), ErrMsg) Then
+                'If Not SharedFunction.Get_getAllowedMemberTypeListPRN(cboMembershipType, printF.GetCoverageStatusv3(_frmWebBrowser.WebBrowser1), ErrMsg) Then
                 SharedFunction.ShowErrorMessage(String.Format("getAllowedMemberTypeListPRN(): Failed to get ws list for '{0}'", printF.GetCoverageStatus_v2(_frmWebBrowser.WebBrowser1)))
                 cboMembershipType.Items.Clear()
                 cboMembershipType.Items.Add("-POPULATION FAILED-")

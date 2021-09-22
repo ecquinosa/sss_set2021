@@ -425,32 +425,34 @@ Public Class printModule
     End Function
 
     Public Function GetCoverageStatus_v2(ByVal webBrowserPath) As String
-        Dim Tmp() As String
-        Dim empID() As String
-        Dim sHtlm
-        Dim getEmpID As String
-        Dim i As Integer
-        Dim nme As Integer
+        'Dim Tmp() As String
+        'Dim empID() As String
+        'Dim sHtlm
+        'Dim getEmpID As String
+        'Dim i As Integer
+        'Dim nme As Integer
 
-        Dim haha As Integer = 1
-        sHtlm = webBrowserPath.Documenttext
+        'Dim haha As Integer = 1
+        'sHtlm = webBrowserPath.Documenttext
 
-        Dim varPosition As Integer = sHtlm.IndexOf("Coverage Status")
+        'Dim varPosition As Integer = sHtlm.IndexOf("Coverage Status")
 
-        If varPosition <> -1 Then
-            Dim arr1() As String = sHtlm.Substring(varPosition, 200).Split(">")
-            'Dim arr2() As String = arr1(1).Split(">")
+        'If varPosition <> -1 Then
+        '    Dim arr1() As String = sHtlm.Substring(varPosition, 200).Split(">")
+        '    'Dim arr2() As String = arr1(1).Split(">")
 
-            '&nbsp;&nbspCOVERED EMPLOYEE</td
-            Return arr1(2).Replace("</td", "").Replace("&nbsp", "").Replace(";", "")
-        Else
-            Return CoveredStatus
-        End If
+        '    '&nbsp;&nbspCOVERED EMPLOYEE</td
+        '    Return arr1(2).Replace("</td", "").Replace("&nbsp", "").Replace(";", "")
+        'Else
+        '    Return CoveredStatus
+        'End If
+
+        Return GetCoverageStatusv3(webBrowserPath)
     End Function
 
-    'Public Function GetCoverageStatusv3(ByVal webBrowserPath) As String
     Public Function GetCoverageStatusv3(ByVal webBrowserPath) As String
-        sHtlm = webBrowserPath 'webBrowserPath.Documenttext
+        'Public Function GetCoverageStatusv3(ByVal webBrowserPath) As String
+        sHtlm = webBrowserPath.Documenttext
 
         Dim varPosition As Integer = sHtlm.IndexOf("Membership Type")
 
