@@ -10,6 +10,11 @@ Public Class usrfrmSelectv2
 
         If SharedFunction.GetMonitorInch = SharedFunction.monitorInch.twelveInch Then
             Label2.Top = Label2.Top + 30
+
+            pbFeedback.Top = pbFeedback.Top + 5
+            lblFeedback.Top = lblFeedback.Top + 5
+            pbCitizenCharter.Top = pbCitizenCharter.Top + 5
+            lblCitizenCharter.Top = lblCitizenCharter.Top + 5
         End If
 
         '' Add any initialization after the InitializeComponent() call.

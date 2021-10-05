@@ -33,30 +33,8 @@ Public Class Main
         Catch ex As Exception
 
         End Try
-        
+
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs)
-        If Me.FormBorderStyle = FormBorderStyle.None Then
-            Me.FormBorderStyle = FormBorderStyle.FixedToolWindow
-            Me.WindowState = FormWindowState.Normal
-        Else
-            Me.FormBorderStyle = FormBorderStyle.None
-            Me.WindowState = FormWindowState.Maximized
-        End If
-    End Sub
 
-    Private Sub Button1_Click_1(sender As Object, e As EventArgs) 
-        _frmMainMenu.AddRemoveIEVersion(True)
-    End Sub
-
-    Private Sub Button2_Click(sender As Object, e As EventArgs) 
-        _frmMainMenu.AddRemoveIEVersion(False)
-    End Sub
-
-    Private Sub Button1_Click_2(sender As Object, e As EventArgs) 
-        Dim printF As New printModule
-        Dim s = printF.GetCoverageStatusv3(System.IO.File.ReadAllText("D:\ss_test.txt"))
-        Console.Write(s)
-    End Sub
 End Class

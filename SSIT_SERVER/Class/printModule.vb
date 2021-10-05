@@ -359,6 +359,8 @@ Public Class printModule
 
     '-------------- Member Details --------------------
     Public Function GetSSNumberStatus(ByVal webBrowserPath) As String
+        Return GetSSNumberStatusv2(webBrowserPath)
+
         'On Error GoTo errHdlr
         Dim Tmp() As String
         Dim ssStatus() As String
@@ -388,6 +390,20 @@ Public Class printModule
         'errHdlr:
         'logs
         Return GetSSNumberStatus
+    End Function
+
+    Public Function GetSSNumberStatusv2(ByVal webBrowserPath) As String
+        sHtlm = webBrowserPath.Documenttext
+
+        Dim varPosition As Integer = sHtlm.IndexOf("SS Number Status")
+
+        If varPosition <> -1 Then
+            Dim arr1() As String = sHtlm.Substring(varPosition, 200).Split(">")
+
+            Return arr1(2).Replace("</td", "").Replace("&nbsp", "").Replace(";", "").Trim
+        Else
+            Return ""
+        End If
     End Function
 
 
@@ -467,6 +483,8 @@ Public Class printModule
 
     '-------------- Record Location --------------------
     Public Function GetRecordLocation(ByVal webBrowserPath) As String
+        Return GetRecordLocationv2(webBrowserPath)
+
         'On Error GoTo errHdlr
         Dim Tmp() As String
         Dim recLocation() As String
@@ -497,6 +515,20 @@ Public Class printModule
         'errHdlr:
         'logs
         Return GetRecordLocation
+    End Function
+
+    Public Function GetRecordLocationv2(ByVal webBrowserPath) As String
+        sHtlm = webBrowserPath.Documenttext
+
+        Dim varPosition As Integer = sHtlm.IndexOf("Record Location")
+
+        If varPosition <> -1 Then
+            Dim arr1() As String = sHtlm.Substring(varPosition, 200).Split(">")
+
+            Return arr1(2).Replace("</td", "").Replace("&nbsp", "").Replace(";", "").Trim
+        Else
+            Return ""
+        End If
     End Function
     '  new GETEMPID
 
@@ -1359,6 +1391,20 @@ Public Class printModule
         'errHdlr:
         'logs
         Return GetEmployerName
+    End Function
+
+    Public Function GetEmployerNamev2(ByVal webBrowserPath) As String
+        sHtlm = webBrowserPath.Documenttext
+
+        Dim varPosition As Integer = sHtlm.IndexOf("Membership Type")
+
+        If varPosition <> -1 Then
+            Dim arr1() As String = sHtlm.Substring(varPosition, 200).Split(">")
+
+            Return arr1(2).Replace("</td", "").Replace("&nbsp", "").Replace(";", "").Trim
+        Else
+            Return CoveredStatus
+        End If
     End Function
 
     Public Function GetReportingDate(ByVal webBrowserPath) As String

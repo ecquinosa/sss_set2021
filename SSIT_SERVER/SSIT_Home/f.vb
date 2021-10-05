@@ -1,5 +1,5 @@
 ﻿
-Public Class usrfrmFingerprintValidation12
+Public Class usrfrmFingerprintValidation
     Dim CCDT As String
     Public Sub New(ByVal CRN As String, ByVal IsAssignPIN As Boolean, ByVal umid As umid)
 
@@ -8,8 +8,6 @@ Public Class usrfrmFingerprintValidation12
         _CRN = CRN.Replace("-", "")
         _IsAssignPIN = IsAssignPIN
         Me.umid = umid
-
-        Me.Size = New Size(Main.Size.Width, Main.Size.Height)
 
         ' Add any initialization after the InitializeComponent() call.
 
@@ -32,22 +30,12 @@ Public Class usrfrmFingerprintValidation12
     Private fingers() As String = {"right index", "right thumb", "left index", "left thumb"}
     Private fingerSelected As Short
 
-    Private Sub usrfrmFingerprintValidation12_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub usrfrmFingerprintValidation_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         CheckForIllegalCrossThreadCalls = False
 
-        'Dim sb As New System.Text.StringBuilder
-        'sb.AppendLine("Main - Width " & Main.Size.Width & ", Height " & Main.Size.Height)
-        'sb.AppendLine("ctrl - Width " & Me.Size.Width & ", Height " & Me.Size.Height)
-        'MessageBox.Show(sb.ToString)
-
         StartProcess()
-
         'MatchingSuccess(0)
     End Sub
-
-    Private Function ResizeImage(ByVal inputImage As Image) As Image
-        Return New Bitmap(inputImage, New Size(1536, 864))
-    End Function
 
     Public Sub StartProcess()
         isShowFutronic = True
@@ -80,7 +68,7 @@ Public Class usrfrmFingerprintValidation12
     Private MATCHINGCNTR As Integer = 0
 
     Private Sub BindFingerScanningImage()
-        Dim strFileImage As String = ""
+        Dim strFileImage As String
 
         Select Case finger_index 'cboFingerPosition.SelectedIndex
             Case 0
@@ -96,6 +84,8 @@ Public Class usrfrmFingerprintValidation12
         Dim ms As New IO.MemoryStream(IO.File.ReadAllBytes(strFileImage))
         Me.BackgroundImage = Image.FromStream(ms)
         Me.BackgroundImageLayout = ImageLayout.Stretch
+
+        'MessageBox.Show(String.Format("Me Width {0} Height {1}, BackgroundImage Width {2} Height {3}", Me.Width, Me.Height, Me.BackgroundImage.Width, Me.BackgroundImage.Height))
 
         Do While Me.BackgroundImage Is Nothing
             Dim ms2 As New IO.MemoryStream(IO.File.ReadAllBytes(strFileImage))
@@ -136,6 +126,7 @@ Public Class usrfrmFingerprintValidation12
             Else
                 _frmFutronic.m_bCancelOperation = True
             End If
+
         Catch ex As Exception
             MessageBox.Show("Futronic error " & ex.Message)
         End Try
@@ -294,7 +285,7 @@ Public Class usrfrmFingerprintValidation12
 
         Try
             'MessageBox.Show(Main.Controls(0).Name)
-            If Main.Controls(0).Name <> "usrfrmFingerprintValidation12" Then
+            If Main.Controls(0).Name <> "usrfrmFingerprintValidation" Then
                 threadMatch = Nothing
                 session = Nothing
                 Exit Sub
@@ -303,6 +294,7 @@ Public Class usrfrmFingerprintValidation12
             Me.bln = False
 
             Invoke(New Action(AddressOf BindFingerScanningImage))
+
 
             'If ATTMPTCNTR = (SharedFunction.FAILED_MATCHING_LIMIT - 1) Then
             '    lblMessage.Text = ""
@@ -332,7 +324,7 @@ Public Class usrfrmFingerprintValidation12
             lblMessage.Text = String.Format("Place your {0} on the fingerprint scanner for validation...", fingers(finger_index).ToUpper)
             Application.DoEvents()
 
-            If Main.Controls(0).Name <> "usrfrmFingerprintValidation12" Then
+            If Main.Controls(0).Name <> "usrfrmFingerprintValidation" Then
                 threadMatch = Nothing
                 session = Nothing
                 Exit Sub
@@ -541,12 +533,9 @@ Public Class usrfrmFingerprintValidation12
         _frmMainMenu.DisposeForm(_frmPIN)
     End Sub
 
-    Private Sub usrfrmFingerprintValidation12_Disposed(sender As Object, e As EventArgs) Handles Me.Disposed
+    Private Sub usrfrmFingerprintValidation_Disposed(sender As Object, e As EventArgs) Handles Me.Disposed
         _frmMainMenu.DisposeForm(_frmFutronic)
     End Sub
 
-    Private Sub usrfrmFingerprintValidation12_Resize(sender As Object, e As EventArgs) Handles Me.Resize
-
-    End Sub
 
 End Class

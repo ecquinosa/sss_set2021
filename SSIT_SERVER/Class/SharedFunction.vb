@@ -2332,10 +2332,24 @@
 
     Public Shared Function GetMonitorInch() As monitorInch
         '1280 x 1024 is 19inch
-        '1024 x 768
+        '1024 x 768 (during UAT) (small screen)
+        '1920 x 1080 (during PROD) (small screen)
         Dim width As Integer = SystemInformation.PrimaryMonitorSize.Width
         Dim height As Integer = SystemInformation.PrimaryMonitorSize.Height
-        If width = 1024 And height = 768 Then
+        If width = 1280 And height = 1024 Then
+            Return monitorInch.nineteenInch
+        Else
+            Return monitorInch.twelveInch
+        End If
+    End Function
+
+    Public Shared Function GetMonitorInch_bak() As monitorInch
+        '1280 x 1024 is 19inch
+        '1024 x 768 (during UAT) (small screen)
+        '1920 x 1080 (during PROD) (small screen)
+        Dim width As Integer = SystemInformation.PrimaryMonitorSize.Width
+        Dim height As Integer = SystemInformation.PrimaryMonitorSize.Height
+        If width = 1920 And height = 1080 Then
             Return monitorInch.twelveInch
         Else
             Return monitorInch.nineteenInch

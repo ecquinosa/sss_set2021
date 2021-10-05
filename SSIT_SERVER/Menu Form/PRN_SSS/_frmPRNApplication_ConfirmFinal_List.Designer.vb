@@ -47,6 +47,13 @@ Partial Class _frmPRNApplication_ConfirmFinal_List
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel15 = New System.Windows.Forms.Panel()
         Me.grid = New System.Windows.Forms.DataGridView()
+        Me.pbBarcode = New System.Windows.Forms.PictureBox()
+        Me.lblPRN = New System.Windows.Forms.Label()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.UsrfrmPageHeader1 = New SSIT_SERVER.usrfrmPageHeader()
         Me.PRN = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ApplicablePeriod = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ssamt = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -56,13 +63,6 @@ Partial Class _frmPRNApplication_ConfirmFinal_List
         Me.TotalAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DueDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PrintButton = New System.Windows.Forms.DataGridViewLinkColumn()
-        Me.pbBarcode = New System.Windows.Forms.PictureBox()
-        Me.lblPRN = New System.Windows.Forms.Label()
-        Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.UsrfrmPageHeader1 = New SSIT_SERVER.usrfrmPageHeader()
         Me.Panel1.SuspendLayout()
         Me.Panel6.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -212,7 +212,6 @@ Partial Class _frmPRNApplication_ConfirmFinal_List
         '
         'Panel15
         '
-        Me.Panel15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel15.Controls.Add(Me.grid)
         Me.Panel15.Controls.Add(Me.pbBarcode)
         Me.Panel15.Controls.Add(Me.lblPRN)
@@ -253,107 +252,8 @@ Partial Class _frmPRNApplication_ConfirmFinal_List
         DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grid.RowsDefaultCellStyle = DataGridViewCellStyle11
         Me.grid.RowTemplate.Height = 45
-        Me.grid.Size = New System.Drawing.Size(844, 365)
+        Me.grid.Size = New System.Drawing.Size(846, 367)
         Me.grid.TabIndex = 433
-        '
-        'PRN
-        '
-        Me.PRN.DataPropertyName = "iprnum"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.PRN.DefaultCellStyle = DataGridViewCellStyle3
-        Me.PRN.HeaderText = "Payment Reference Number"
-        Me.PRN.MinimumWidth = 6
-        Me.PRN.Name = "PRN"
-        Me.PRN.ReadOnly = True
-        Me.PRN.Width = 134
-        '
-        'ApplicablePeriod
-        '
-        Me.ApplicablePeriod.DataPropertyName = "ApplicablePeriod"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.ApplicablePeriod.DefaultCellStyle = DataGridViewCellStyle4
-        Me.ApplicablePeriod.HeaderText = "Applicable Period"
-        Me.ApplicablePeriod.MinimumWidth = 6
-        Me.ApplicablePeriod.Name = "ApplicablePeriod"
-        Me.ApplicablePeriod.ReadOnly = True
-        Me.ApplicablePeriod.Width = 159
-        '
-        'ssamt
-        '
-        Me.ssamt.DataPropertyName = "ssamt"
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.ssamt.DefaultCellStyle = DataGridViewCellStyle5
-        Me.ssamt.HeaderText = "SS Amount"
-        Me.ssamt.MinimumWidth = 6
-        Me.ssamt.Name = "ssamt"
-        Me.ssamt.ReadOnly = True
-        Me.ssamt.Width = 80
-        '
-        'ecamt
-        '
-        Me.ecamt.DataPropertyName = "ecamt"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.ecamt.DefaultCellStyle = DataGridViewCellStyle6
-        Me.ecamt.HeaderText = "EC Amount"
-        Me.ecamt.MinimumWidth = 6
-        Me.ecamt.Name = "ecamt"
-        Me.ecamt.ReadOnly = True
-        Me.ecamt.Width = 80
-        '
-        'MonthlyPayment
-        '
-        Me.MonthlyPayment.DataPropertyName = "MonthlyPayment"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.MonthlyPayment.DefaultCellStyle = DataGridViewCellStyle7
-        Me.MonthlyPayment.HeaderText = "Monthly Payment"
-        Me.MonthlyPayment.MinimumWidth = 6
-        Me.MonthlyPayment.Name = "MonthlyPayment"
-        Me.MonthlyPayment.ReadOnly = True
-        Me.MonthlyPayment.Visible = False
-        Me.MonthlyPayment.Width = 6
-        '
-        'FlexiFund
-        '
-        Me.FlexiFund.DataPropertyName = "FlexiFund"
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.FlexiFund.DefaultCellStyle = DataGridViewCellStyle8
-        Me.FlexiFund.HeaderText = "Flexi-Fund Amount"
-        Me.FlexiFund.MinimumWidth = 6
-        Me.FlexiFund.Name = "FlexiFund"
-        Me.FlexiFund.ReadOnly = True
-        '
-        'TotalAmount
-        '
-        Me.TotalAmount.DataPropertyName = "tsamt"
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.TotalAmount.DefaultCellStyle = DataGridViewCellStyle9
-        Me.TotalAmount.HeaderText = "Total Amount"
-        Me.TotalAmount.MinimumWidth = 6
-        Me.TotalAmount.Name = "TotalAmount"
-        Me.TotalAmount.ReadOnly = True
-        Me.TotalAmount.Width = 125
-        '
-        'DueDate
-        '
-        Me.DueDate.DataPropertyName = "dueDate"
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.DueDate.DefaultCellStyle = DataGridViewCellStyle10
-        Me.DueDate.HeaderText = "Due Date"
-        Me.DueDate.MinimumWidth = 6
-        Me.DueDate.Name = "DueDate"
-        Me.DueDate.ReadOnly = True
-        Me.DueDate.Width = 85
-        '
-        'PrintButton
-        '
-        Me.PrintButton.HeaderText = ""
-        Me.PrintButton.MinimumWidth = 6
-        Me.PrintButton.Name = "PrintButton"
-        Me.PrintButton.ReadOnly = True
-        Me.PrintButton.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.PrintButton.Text = "PRINT"
-        Me.PrintButton.UseColumnTextForLinkValue = True
-        Me.PrintButton.Width = 65
         '
         'pbBarcode
         '
@@ -405,7 +305,7 @@ Partial Class _frmPRNApplication_ConfirmFinal_List
         Me.Label14.ForeColor = System.Drawing.Color.White
         Me.Label14.Location = New System.Drawing.Point(3, 6)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(0, 25)
+        Me.Label14.Size = New System.Drawing.Size(0, 32)
         Me.Label14.TabIndex = 24
         '
         'Panel2
@@ -426,9 +326,109 @@ Partial Class _frmPRNApplication_ConfirmFinal_List
         Me.UsrfrmPageHeader1.Size = New System.Drawing.Size(883, 147)
         Me.UsrfrmPageHeader1.TabIndex = 74
         '
+        'PRN
+        '
+        Me.PRN.DataPropertyName = "iprnum"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.PRN.DefaultCellStyle = DataGridViewCellStyle3
+        Me.PRN.HeaderText = "Payment Reference Number"
+        Me.PRN.MinimumWidth = 6
+        Me.PRN.Name = "PRN"
+        Me.PRN.ReadOnly = True
+        Me.PRN.Width = 130
+        '
+        'ApplicablePeriod
+        '
+        Me.ApplicablePeriod.DataPropertyName = "ApplicablePeriod"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.ApplicablePeriod.DefaultCellStyle = DataGridViewCellStyle4
+        Me.ApplicablePeriod.HeaderText = "Applicable Period"
+        Me.ApplicablePeriod.MinimumWidth = 6
+        Me.ApplicablePeriod.Name = "ApplicablePeriod"
+        Me.ApplicablePeriod.ReadOnly = True
+        Me.ApplicablePeriod.Width = 157
+        '
+        'ssamt
+        '
+        Me.ssamt.DataPropertyName = "ssamt"
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.ssamt.DefaultCellStyle = DataGridViewCellStyle5
+        Me.ssamt.HeaderText = "SS Amount"
+        Me.ssamt.MinimumWidth = 6
+        Me.ssamt.Name = "ssamt"
+        Me.ssamt.ReadOnly = True
+        Me.ssamt.Width = 80
+        '
+        'ecamt
+        '
+        Me.ecamt.DataPropertyName = "ecamt"
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.ecamt.DefaultCellStyle = DataGridViewCellStyle6
+        Me.ecamt.HeaderText = "EC Amount"
+        Me.ecamt.MinimumWidth = 6
+        Me.ecamt.Name = "ecamt"
+        Me.ecamt.ReadOnly = True
+        Me.ecamt.Width = 80
+        '
+        'MonthlyPayment
+        '
+        Me.MonthlyPayment.DataPropertyName = "MonthlyPayment"
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.MonthlyPayment.DefaultCellStyle = DataGridViewCellStyle7
+        Me.MonthlyPayment.HeaderText = "Monthly Payment"
+        Me.MonthlyPayment.MinimumWidth = 6
+        Me.MonthlyPayment.Name = "MonthlyPayment"
+        Me.MonthlyPayment.ReadOnly = True
+        Me.MonthlyPayment.Visible = False
+        Me.MonthlyPayment.Width = 6
+        '
+        'FlexiFund
+        '
+        Me.FlexiFund.DataPropertyName = "FlexiFund"
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.FlexiFund.DefaultCellStyle = DataGridViewCellStyle8
+        Me.FlexiFund.HeaderText = "Flexi-Fund Amount"
+        Me.FlexiFund.MinimumWidth = 6
+        Me.FlexiFund.Name = "FlexiFund"
+        Me.FlexiFund.ReadOnly = True
+        Me.FlexiFund.Width = 125
+        '
+        'TotalAmount
+        '
+        Me.TotalAmount.DataPropertyName = "tsamt"
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.TotalAmount.DefaultCellStyle = DataGridViewCellStyle9
+        Me.TotalAmount.HeaderText = "Total Amount"
+        Me.TotalAmount.MinimumWidth = 6
+        Me.TotalAmount.Name = "TotalAmount"
+        Me.TotalAmount.ReadOnly = True
+        Me.TotalAmount.Width = 125
+        '
+        'DueDate
+        '
+        Me.DueDate.DataPropertyName = "dueDate"
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.DueDate.DefaultCellStyle = DataGridViewCellStyle10
+        Me.DueDate.HeaderText = "Due Date"
+        Me.DueDate.MinimumWidth = 6
+        Me.DueDate.Name = "DueDate"
+        Me.DueDate.ReadOnly = True
+        Me.DueDate.Width = 83
+        '
+        'PrintButton
+        '
+        Me.PrintButton.HeaderText = ""
+        Me.PrintButton.MinimumWidth = 6
+        Me.PrintButton.Name = "PrintButton"
+        Me.PrintButton.ReadOnly = True
+        Me.PrintButton.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.PrintButton.Text = "PRINT"
+        Me.PrintButton.UseColumnTextForLinkValue = True
+        Me.PrintButton.Width = 65
+        '
         '_frmPRNApplication_ConfirmFinal_List
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 19.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(883, 749)
         Me.Controls.Add(Me.Panel1)

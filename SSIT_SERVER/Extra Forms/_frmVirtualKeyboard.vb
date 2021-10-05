@@ -67,13 +67,13 @@ Public Class _frmVirtualKeyboard
         'MessageBox.Show(SharedFunction.GetMonitorInch.ToString())
 
         If SharedFunction.GetMonitorInch = SharedFunction.monitorInch.twelveInch Then
-            'virtualKeyboard1.Width = virtualKeyboard1.Width - 20
-            'pbSelectAll.Left = pbSelectAll.Left - 20
-            'pbCopy.Left = pbCopy.Left - 20
-            'pbPaste.Left = pbPaste.Left - 20
-            'pbClose.Left = pbClose.Left - 20
+            ''virtualKeyboard1.Width = virtualKeyboard1.Width - 20
+            ''pbSelectAll.Left = pbSelectAll.Left - 20
+            ''pbCopy.Left = pbCopy.Left - 20
+            ''pbPaste.Left = pbPaste.Left - 20
+            ''pbClose.Left = pbClose.Left - 20
 
-            virtualKeyboard1.Width = virtualKeyboard1.Width - 180
+            'virtualKeyboard1.Width = virtualKeyboard1.Width - 180
             pbSelectAll.Left = virtualKeyboard1.Width + 5
             pbCopy.Left = virtualKeyboard1.Width + 5
             pbPaste.Left = virtualKeyboard1.Width + 5

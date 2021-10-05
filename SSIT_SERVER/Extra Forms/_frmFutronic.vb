@@ -115,6 +115,9 @@ Public Class _frmFutronic
 
             OpenDevice()
             m_InvertImage = True
+
+            If m_hDevice Is Nothing Then Return
+
             m_hDevice.InvertImage = m_InvertImage
             m_DoseSelected = 3
             m_ScanMode = 0
@@ -315,7 +318,7 @@ Public Class _frmFutronic
 
     Private Sub GetFrame()
         Try
-            'Return
+            If m_hDevice Is Nothing Then Invoke(New Action(AddressOf Init))
 
             If m_ScanMode = 0 Then
                 m_Frame = m_hDevice.GetFrame()

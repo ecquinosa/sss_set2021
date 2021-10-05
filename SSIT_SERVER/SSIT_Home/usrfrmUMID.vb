@@ -3,6 +3,23 @@
 
 Public Class usrfrmUMID
 
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        If SharedFunction.GetMonitorInch = SharedFunction.monitorInch.twelveInch Then
+            pbCode.Size = New Size(pbCode.Size.Width - 20, pbCode.Size.Height - 20)
+            'Label1.Font = New Font(Label1.Font.Name, Label1.Font.Size - 2)
+            Label1.Top = Label1.Top - 18
+            Label1.Left = Label1.Left - 8
+            lblMessage.Top = lblMessage.Top - 8
+        End If
+
+        ' Add any initialization after the InitializeComponent() call.
+
+    End Sub
+
     Private session As System.Threading.Thread
 
     Private ErrorMessage As String = ""
@@ -1177,6 +1194,8 @@ Public Class usrfrmUMID
 
     Private Function CheckRequirements() As Boolean
         Try
+            'Return True
+
             If DeviceConnectivity.IsCardReaderPresent Then
                 'Dim result As String = AllcardUMID.GetCRN(ErrorMessage)
 

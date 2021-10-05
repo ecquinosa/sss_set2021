@@ -3207,7 +3207,7 @@ Public Class _frmMainMenu
                         Select Case splitContainerControl.Panel2.Controls(0).Name
                             Case _frmEnhanceMaternityNotif.Name, _frmPensionMaintenance.Name, _frmPRNApplication.Name, _frmSWR2v2.Name, _frmSWR2.Name,
                                  _frmUpdCntcInfv2.Name, _frmFeedbackWebsite.Name, _frmFeedbackWebsite3.Name, _frmFeedbackWebsite4.Name,
-                                 _frmFeedbackKiosk.Name, _frmFeedbackKiosk2.Name, _frmSSSwebsite.Name
+                                 _frmFeedbackKiosk.Name, _frmFeedbackKiosk2.Name, _frmSSSwebsite.Name, _frmSWR1.Name
                                 ShowKeyboard()
                             Case Else
                                 SharedFunction.ShowInfoMessage("VIRTUAL KEYBOARD IS NOT REQUIRED.")
@@ -5888,11 +5888,11 @@ Public Class _frmMainMenu
 
     Private Sub _frmMainMenu_Resize(sender As Object, e As EventArgs) Handles Me.Resize
         If SharedFunction.GetMonitorInch = SharedFunction.monitorInch.twelveInch Then
-            Panel7.Width = Panel7.Width - 5
-            btnLogout.Width = btnLogout.Width - 5
-            Panel14.Width = Panel14.Width - 5
-            Panel15.Width = Panel15.Width - 5
-            Panel17.Width = Panel17.Width - 5
+            'Panel7.Width = Panel7.Width - 5
+            'btnLogout.Width = btnLogout.Width - 5
+            'Panel14.Width = Panel14.Width - 5
+            'Panel15.Width = Panel15.Width - 5
+            'Panel17.Width = Panel17.Width - 5
 
             Button4.Left = Button4.Left - 4
             Button4.Width -= 8
