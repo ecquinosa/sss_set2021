@@ -4,6 +4,11 @@ Public Class _frmUpdCntcInfv2
     Dim navError As Integer
     Dim webBusy As Integer = 0
 
+    Private scrollVar As Integer = 80
+
+    Private webBrowserOrigTop As Integer = 0
+    Private webBrowserOrigHeight As Integer = 0
+
     Private IsAlreadyZoomOut As Boolean = False
     Private pnlWebInitialTop As Integer = 0
 
@@ -15,17 +20,22 @@ Public Class _frmUpdCntcInfv2
 
     Private Sub _frmUpdCntcInfv2_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Try
-            pnlWebInitialTop = pnlWeb.Top
-            If SharedFunction.GetMonitorInch = SharedFunction.monitorInch.twelveInch And Not IsAlreadyZoomOut Then
-                pbUp.Visible = True
-                pbDown.Visible = True
-            End If
+            webBrowserOrigTop = WebBrowser1.Top
+            webBrowserOrigHeight = WebBrowser1.Height
+
+            'pnlWebInitialTop = pnlWeb.Top
+            'If SharedFunction.GetMonitorInch = SharedFunction.monitorInch.twelveInch And Not IsAlreadyZoomOut Then
+            '    pbUp.Visible = True
+            '    pbDown.Visible = True
+            'End If
             'SharedFunction.ZoomFunction(True)
 
             Dim response() As String = Nothing
 
             'WebBrowser1.Navigate("http://10.101.141.196:3012/members/mdcr/pages/indexE4WES.jsp?token=" & SharedFunction.tokenDetailsResponse(SSStempFile).tokenid)
             'WebBrowser1.Navigate("http://10.141.249.18:8010/members/mdcr/pages/indexE4WES.jsp?token=" & SharedFunction.tokenDetailsResponse(SSStempFile).tokenid)
+
+            'getAdd = 0
 
             If UpdateCntctInfoService_URL.Contains("token=") Then
                 WebBrowser1.Navigate(UpdateCntctInfoService_URL & SharedFunction.tokenDetailsResponse(SSStempFile).tokenid)
@@ -36,9 +46,11 @@ Public Class _frmUpdCntcInfv2
             WebPageLoaded1()
 
 
-            _frmMainMenu.BackNextControls(False)
+            '_frmMainMenu.BackNextControls(False)
             _frmMainMenu.PrintControls(False)
             _frmMainMenu.DisposeForm(_frmLoading)
+
+            '_frmMainMenu.BackNextControls(True, True)
         Catch ex As Exception
             _frmMainMenu.splitContainerControl.Panel2.Controls.Clear()
             _frmErrorForm.TopLevel = False
@@ -164,6 +176,14 @@ Public Class _frmUpdCntcInfv2
     Private Sub WebBrowser1_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles WebBrowser1.DocumentCompleted
         AddHandler WebBrowser1.Document.Body.MouseDown, AddressOf Body_MouseDown
 
+        If WebBrowser1.Url.AbsolutePath = "/members/mdcr/wesConfirm.html" Then
+            'WebBrowser1.Top = WebBrowser1.Top - 0
+            WebBrowser1.Height = webBrowserOrigHeight
+        Else
+            WebBrowser1.Top = 0
+            WebBrowser1.Height = webBrowserOrigHeight
+        End If
+
         'If SharedFunction.GetMonitorInch = SharedFunction.monitorInch.twelveInch And Not IsAlreadyZoomOut Then
         '    'pnlWeb.Top -= 15
         '    'pnlWeb.Left -= 60
@@ -177,7 +197,7 @@ Public Class _frmUpdCntcInfv2
         Select Case e.MouseButtonsPressed
             Case MouseButtons.Left
                 Dim element As HtmlElement = WebBrowser1.Document.GetElementFromPoint(e.ClientMousePosition)
-
+                Console.WriteLine(element.Id)
                 Select Case element.Id
                     Case "cancelAction", "doneAction"
                         'WebBrowser1.document.Body.InnerHtml
@@ -185,6 +205,10 @@ Public Class _frmUpdCntcInfv2
                         '    _frmMainMenu.btnInquiry_Click()
                         'End If
                         _frmMainMenu.btnInquiry_Click()
+                        'Case "nextAction"
+                        '    WebBrowser1.Top = 10
+                        '    WebBrowser1.Height = webBrowserOrigHeight
+                        'Case "chkAddrMail", "chkFrgnMail", "chkPhone", "chkMobile", "chkEmail"
                 End Select
 
                 'If element IsNot Nothing AndAlso "submit".Equals(element.GetAttribute("type"), StringComparison.OrdinalIgnoreCase) Then
@@ -310,5 +334,30 @@ Public Class _frmUpdCntcInfv2
     Private Sub pbDown_Click(sender As Object, e As EventArgs) Handles pbDown.Click
         pnlWeb.Top -= 20
     End Sub
+
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs)
+        ScrollUpv2()
+    End Sub
+
+    Private Sub Button2_Click_1(sender As Object, e As EventArgs)
+        ScrollDownv2()
+    End Sub
+
+    Private Sub _frmUpdCntcInfv2_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        _frmMainMenu.BackNextControls(False)
+    End Sub
+
+    Public Sub ScrollUpv2()
+        WebBrowser1.Top = WebBrowser1.Top - scrollVar
+        WebBrowser1.Height = WebBrowser1.Height + scrollVar
+    End Sub
+
+    Public Sub ScrollDownv2()
+        If WebBrowser1.Top < webBrowserOrigTop Then
+            WebBrowser1.Top = WebBrowser1.Top + scrollVar
+            WebBrowser1.Height = WebBrowser1.Height - scrollVar
+        End If
+    End Sub
+
 
 End Class

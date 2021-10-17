@@ -903,7 +903,7 @@ Namespace My
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.WebServiceUrl),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("http://10.0.4.252:3014/TokenGeneration/TokenDetailsPort")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("http://10.141.249.22:8017/TokenServiceBean/TokenServiceBeanService")>  _
         Public ReadOnly Property SSIT_SERVER_SSSTokenGenerator_TokenDetailsService() As String
             Get
                 Return CType(Me("SSIT_SERVER_SSSTokenGenerator_TokenDetailsService"),String)

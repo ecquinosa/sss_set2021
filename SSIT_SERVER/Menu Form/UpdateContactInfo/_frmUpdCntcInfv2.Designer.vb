@@ -27,10 +27,10 @@ Partial Class _frmUpdCntcInfv2
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.pnlBody = New System.Windows.Forms.Panel()
         Me.pnlWeb = New System.Windows.Forms.Panel()
+        Me.WebBrowser1 = New System.Windows.Forms.WebBrowser()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.pbDown = New System.Windows.Forms.PictureBox()
         Me.pbUp = New System.Windows.Forms.PictureBox()
-        Me.WebBrowser1 = New System.Windows.Forms.WebBrowser()
         Me.UsrfrmPageHeader1 = New SSIT_SERVER.usrfrmPageHeader()
         Me.Panel1.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -77,6 +77,14 @@ Partial Class _frmUpdCntcInfv2
         Me.pnlWeb.Size = New System.Drawing.Size(900, 998)
         Me.pnlWeb.TabIndex = 6
         '
+        'WebBrowser1
+        '
+        Me.WebBrowser1.Location = New System.Drawing.Point(0, 0)
+        Me.WebBrowser1.MinimumSize = New System.Drawing.Size(20, 20)
+        Me.WebBrowser1.Name = "WebBrowser1"
+        Me.WebBrowser1.Size = New System.Drawing.Size(891, 722)
+        Me.WebBrowser1.TabIndex = 3
+        '
         'Panel2
         '
         Me.Panel2.Controls.Add(Me.pbDown)
@@ -111,14 +119,6 @@ Partial Class _frmUpdCntcInfv2
         Me.pbUp.TabIndex = 80
         Me.pbUp.TabStop = False
         Me.pbUp.Visible = False
-        '
-        'WebBrowser1
-        '
-        Me.WebBrowser1.Location = New System.Drawing.Point(0, 0)
-        Me.WebBrowser1.MinimumSize = New System.Drawing.Size(20, 20)
-        Me.WebBrowser1.Name = "WebBrowser1"
-        Me.WebBrowser1.Size = New System.Drawing.Size(891, 722)
-        Me.WebBrowser1.TabIndex = 3
         '
         'UsrfrmPageHeader1
         '

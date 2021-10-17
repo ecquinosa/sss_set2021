@@ -74,10 +74,17 @@ Public Class _frmVirtualKeyboard
             ''pbClose.Left = pbClose.Left - 20
 
             'virtualKeyboard1.Width = virtualKeyboard1.Width - 180
+            virtualKeyboard1.Width = virtualKeyboard1.Width + 60
             pbSelectAll.Left = virtualKeyboard1.Width + 5
             pbCopy.Left = virtualKeyboard1.Width + 5
             pbPaste.Left = virtualKeyboard1.Width + 5
             pbClose.Left = virtualKeyboard1.Width + 5
+
+            'pbSelectAll.Width = pbSelectAll.Width + 20
+            'pbCopy.Width = pbCopy.Width + 20
+            'pbPaste.Width = pbPaste.Width + 20
+            'pbClose.Width = pbClose.Width + 20
+
         End If
     End Sub
 

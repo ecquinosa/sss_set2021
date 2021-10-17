@@ -535,7 +535,12 @@
         If appletVersion = appVersion.newApplet Then
             crnValue = Util.ByteArrayToAscii(sc.getUmidData(UMIDLibrary.AllCardTech_Smart_Card.UMID_Fields.CRN))
         Else
-            crnValue = AllcardUMID.GetCRN_QC("")
+            crnValue = Util.ByteArrayToAscii(sc.getUmidData(UMIDLibrary.AllCardTech_Smart_Card.UMID_Fields.CRN))
+            If crnValue = "Error" Then
+                crnValue = AllcardUMID.GetCRN_QC("")
+            ElseIf crnValue = "" Then
+                crnValue = AllcardUMID.GetCRN_QC("")
+            End If
         End If
     End Sub
 
@@ -551,14 +556,20 @@
         Try
             If Not isAppletSelected Then Return False
 
-            If Not sc.AuthenticateSL1() Then
-                getCardStatus()
+            'If appletVersion = appVersion.newApplet Then
+            '    If Not sc.AuthenticateSL1() Then
+            '        getCardStatus()
 
-                If cardStatusCode = "9" Then Return True
+            '        If cardStatusCode = "9" Then Return True
 
-                sbException.Append("AuthenticateSL1 failed...")
-                Return False
-            End If
+            '        sbException.Append("AuthenticateSL1 failed...")
+            '        Return False
+            '    End If
+            'Else
+            '    getCardStatus()
+            '    Return True
+            'End If
+
 
             getCRN()
 
@@ -611,23 +622,29 @@
 
             csnValue = Util.ByteArrayToAscii(sc.getUmidData(UMIDLibrary.AllCardTech_Smart_Card.UMID_Fields.CSN))
 
-            Select Case crn
-                Case "003373638407"
-                    Temp_ReplaceFieldsValue003373638407()
-            End Select
+            'Select Case crn
+            '    Case "003373638407"
+            '        Temp_ReplaceFieldsValue003373638407()
+            'End Select
 
             If csnValue <> "" Then If csnValue.Substring(0, 2) = "02" Then isGsisCardValue = True
 
             ccdt = GetCCDT()
-            getCardStatus()
 
-            Dim byteSector36() As Byte = sc.ReadSector(36, 0, 32)
+            Dim byteSector36() As Byte = sc.ReadSector(36, 0, 10)
 
             If CInt(byteSector36.GetValue(0)) > 0 Then
-                sssSector36Value = System.Text.ASCIIEncoding.ASCII.GetString(byteSector36).Trim
+                Dim sectorData As String = System.Text.ASCIIEncoding.ASCII.GetString(byteSector36).Trim
+                If sectorData.Length >= 10 Then
+                    sssSector36Value = sectorData.Substring(0, 10)
+                Else
+                    sssSector36Value = sectorData
+                End If
             Else
                 sssSector36Value = "NO_DATA"
             End If
+
+            getCardStatus()
 
             Return True
         Catch ex As Exception
@@ -674,10 +691,10 @@
         Dim Path_Fingerprint_LB As String = "Temp\LB.ansi-fmr"
         Dim Path_Fingerprint_RB As String = "Temp\RB.ansi-fmr"
 
-        Dim blnLP As Boolean
-        Dim blnRP As Boolean
-        Dim blnLB As Boolean
-        Dim blnRB As Boolean
+        Dim blnLP As Boolean = False
+        Dim blnRP As Boolean = False
+        Dim blnLB As Boolean = False
+        Dim blnRB As Boolean = False
 
         blnLP = sc.getUmidFile(Path_Fingerprint_LP, UMIDLibrary.AllCardTech_Smart_Card.UMID_Fields.BIOMETRIC_LEFT_PRIMARY_FINGER)
         blnRP = sc.getUmidFile(Path_Fingerprint_RP, UMIDLibrary.AllCardTech_Smart_Card.UMID_Fields.BIOMETRIC_RIGHT_PRIMARY_FINGER)

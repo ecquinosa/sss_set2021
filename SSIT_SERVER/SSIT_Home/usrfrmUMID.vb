@@ -172,9 +172,6 @@ Public Class usrfrmUMID
         bln = False
         LabelStatus("Reading details, please do not remove your card...")
 
-        'Dim sbTest As New System.Text.StringBuilder
-
-        'Dim isGSIS As Boolean
         Dim umid As New umid()
         If umid.ReadData(True,) Then
             SharedFunction.SaveToLog(SharedFunction.TimeStamp & "|" & String.Format("CRN {0}, CCDT {1}, STATUS {2}, S36 {3}", umid.crn, umid.ccdt, umid.cardStatus, umid.sssSector36) & "|" & kioskIP & "|" & getbranchCoDE_1)
@@ -194,7 +191,15 @@ Public Class usrfrmUMID
 
             If umid.csn <> "" Then isGSISCard = umid.isGsisCard
 
-            If umid.ReadFingerprints Then
+            Dim isReadFingerprints As Boolean = True
+
+            If umid.appletVersion = umid.appVersion.newApplet Then
+                isReadFingerprints = umid.ReadFingerprints
+            ElseIf umid.cardStatusCode = "0" Then
+                isReadFingerprints = umid.ReadFingerprints
+            End If
+
+            If isReadFingerprints Then
                 sbTest.Append("Reading fingerprint success" & vbNewLine)
 
                 If Not isGSISCard Then
@@ -214,12 +219,15 @@ Public Class usrfrmUMID
                     End If
                 End If
             Else
-                SharedFunction.InvokeSystemMessage(Me, umid.Exception, SystemMessage.MsgType.Warning)
-                SharedFunction.InvokeSystemMessage(Me, "FAILED TO READ FINGERPRINT(S) FROM CARD.", SystemMessage.MsgType.Warning)
+                SharedFunction.SaveToLog(SharedFunction.TimeStamp & "|" & "Card with CRN " & tempCRN & " failed to read fingerprints." & umid.Exception & "|" & kioskIP & "|" & getbranchCoDE_1)
+                SharedFunction.InvokeSystemMessage(Me, "FAILED TO READ FINGERPRINT(S) FROM CARD. PLEASE TRY AGAIN.", SystemMessage.MsgType.Warning)
                 bln = False
                 session = Nothing
                 CloseUserForm()
             End If
+
+
+
         Else
             Dim msg As String = ""
             If Not umid.isAppletSelected Then
@@ -337,7 +345,7 @@ Public Class usrfrmUMID
                 'TempoUMIDLog(String.Format("CARD_INACTIVE CHECKIFRECENT {0}, CRN {1}, CCDT {2}, SSNum {3}", intResult.ToString, tempCRN, ccdt, SSNum))
                 sbTest.Append("CARD_INACTIVE" & vbNewLine)
                 sbTest.Append("CHECKIFRECENT RESULT " & intResult.ToString & vbNewLine)
-                MessageBox.Show(sbTest.ToString)
+                'MessageBox.Show(sbTest.ToString)
 
                 Select Case intResult
                     Case 0
@@ -407,6 +415,10 @@ Public Class usrfrmUMID
             If cardStatus.ToUpper.Trim = "CARD_ACTIVE" Then
                 Dim _CRN As String = readSettings(xml_Filename, xml_path, "CRN")
                 Dim _CCDT As String = readSettings(xml_Filename, xml_path, "CCDT")
+
+                'Dim SSNum2 As String = ""
+                'Dim PIN2 As String = ""
+                'Dim intResult2 As Short = SharedFunction.CHECKIFRECENT(Me, tempCRN, _CCDT, 2, SSNum2, PIN2)
 
                 If _Sector36 <> "Error" Then
                     Dim SSNum As String = ""
@@ -500,6 +512,10 @@ Public Class usrfrmUMID
             SharedFunction.InvokeSystemMessage(Me, msg.ToUpper, SystemMessage.MsgType.Warning)
             CloseUserForm()
         End If
+    End Sub
+
+    Private Sub ValidateCheckIfRecentResponse(ByVal intResult As Short, ByVal SSNum As String)
+
     End Sub
 
     Private Sub ReadActivateCard2()

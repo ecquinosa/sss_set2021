@@ -27,11 +27,11 @@ Namespace SSSTokenGenerator
     <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Web.Services.WebServiceBindingAttribute(Name:="TokenGenerationServicePortBinding", [Namespace]:="http://pojo.sss.tokengen/")>  _
-    Partial Public Class TokenDetailsService
+     System.Web.Services.WebServiceBindingAttribute(Name:="TokenServiceBeanServicePortBinding", [Namespace]:="http://service.sss.tokengen/")>  _
+    Partial Public Class TokenServiceBeanService
         Inherits System.Web.Services.Protocols.SoapHttpClientProtocol
         
-        Private TokenGenerationOperationCompleted As System.Threading.SendOrPostCallback
+        Private generateTokenOperationCompleted As System.Threading.SendOrPostCallback
         
         Private useDefaultCredentialsSetExplicitly As Boolean
         
@@ -72,32 +72,32 @@ Namespace SSSTokenGenerator
         End Property
         
         '''<remarks/>
-        Public Event TokenGenerationCompleted As TokenGenerationCompletedEventHandler
+        Public Event generateTokenCompleted As generateTokenCompletedEventHandler
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace:="http://pojo.sss.tokengen/", ResponseNamespace:="http://pojo.sss.tokengen/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
-        Public Function TokenGeneration(<System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)> ByVal tokenDetails As tokenDetailsRequest) As <System.Xml.Serialization.XmlElementAttribute("return", Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)> tokenDetailsResponse
-            Dim results() As Object = Me.Invoke("TokenGeneration", New Object() {tokenDetails})
+        <System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace:="http://service.sss.tokengen/", ResponseNamespace:="http://service.sss.tokengen/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function generateToken(<System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)> ByVal sssid As String, <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)> ByVal erbrn As String, <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)> ByVal appcd As String, <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)> ByVal trancd As String) As <System.Xml.Serialization.XmlElementAttribute("return", Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)> tokenDetailsResponse
+            Dim results() As Object = Me.Invoke("generateToken", New Object() {sssid, erbrn, appcd, trancd})
             Return CType(results(0),tokenDetailsResponse)
         End Function
         
         '''<remarks/>
-        Public Overloads Sub TokenGenerationAsync(ByVal tokenDetails As tokenDetailsRequest)
-            Me.TokenGenerationAsync(tokenDetails, Nothing)
+        Public Overloads Sub generateTokenAsync(ByVal sssid As String, ByVal erbrn As String, ByVal appcd As String, ByVal trancd As String)
+            Me.generateTokenAsync(sssid, erbrn, appcd, trancd, Nothing)
         End Sub
         
         '''<remarks/>
-        Public Overloads Sub TokenGenerationAsync(ByVal tokenDetails As tokenDetailsRequest, ByVal userState As Object)
-            If (Me.TokenGenerationOperationCompleted Is Nothing) Then
-                Me.TokenGenerationOperationCompleted = AddressOf Me.OnTokenGenerationOperationCompleted
+        Public Overloads Sub generateTokenAsync(ByVal sssid As String, ByVal erbrn As String, ByVal appcd As String, ByVal trancd As String, ByVal userState As Object)
+            If (Me.generateTokenOperationCompleted Is Nothing) Then
+                Me.generateTokenOperationCompleted = AddressOf Me.OngenerateTokenOperationCompleted
             End If
-            Me.InvokeAsync("TokenGeneration", New Object() {tokenDetails}, Me.TokenGenerationOperationCompleted, userState)
+            Me.InvokeAsync("generateToken", New Object() {sssid, erbrn, appcd, trancd}, Me.generateTokenOperationCompleted, userState)
         End Sub
         
-        Private Sub OnTokenGenerationOperationCompleted(ByVal arg As Object)
-            If (Not (Me.TokenGenerationCompletedEvent) Is Nothing) Then
+        Private Sub OngenerateTokenOperationCompleted(ByVal arg As Object)
+            If (Not (Me.generateTokenCompletedEvent) Is Nothing) Then
                 Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
-                RaiseEvent TokenGenerationCompleted(Me, New TokenGenerationCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+                RaiseEvent generateTokenCompleted(Me, New generateTokenCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
             End If
         End Sub
         
@@ -125,84 +125,12 @@ Namespace SSSTokenGenerator
      System.SerializableAttribute(),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://pojo.sss.tokengen/")>  _
-    Partial Public Class tokenDetailsRequest
-        
-        Private sssidField As String
-        
-        Private erbrnField As String
-        
-        Private appcdField As String
-        
-        Private trancdField As String
-        
-        '''<remarks/>
-        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
-        Public Property sssid() As String
-            Get
-                Return Me.sssidField
-            End Get
-            Set
-                Me.sssidField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
-        Public Property erbrn() As String
-            Get
-                Return Me.erbrnField
-            End Get
-            Set
-                Me.erbrnField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
-        Public Property appcd() As String
-            Get
-                Return Me.appcdField
-            End Get
-            Set
-                Me.appcdField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
-        Public Property trancd() As String
-            Get
-                Return Me.trancdField
-            End Get
-            Set
-                Me.trancdField = value
-            End Set
-        End Property
-    End Class
-    
-    '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0"),  _
-     System.SerializableAttribute(),  _
-     System.Diagnostics.DebuggerStepThroughAttribute(),  _
-     System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://pojo.sss.tokengen/")>  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://service.sss.tokengen/")>  _
     Partial Public Class tokenDetailsResponse
-        
-        Private tokenidField As String
         
         Private msgField As String
         
-        '''<remarks/>
-        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
-        Public Property tokenid() As String
-            Get
-                Return Me.tokenidField
-            End Get
-            Set
-                Me.tokenidField = value
-            End Set
-        End Property
+        Private tokenidField As String
         
         '''<remarks/>
         <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
@@ -214,17 +142,28 @@ Namespace SSSTokenGenerator
                 Me.msgField = value
             End Set
         End Property
+        
+        '''<remarks/>
+        <System.Xml.Serialization.XmlElementAttribute(Form:=System.Xml.Schema.XmlSchemaForm.Unqualified)>  _
+        Public Property tokenid() As String
+            Get
+                Return Me.tokenidField
+            End Get
+            Set
+                Me.tokenidField = value
+            End Set
+        End Property
     End Class
     
     '''<remarks/>
     <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")>  _
-    Public Delegate Sub TokenGenerationCompletedEventHandler(ByVal sender As Object, ByVal e As TokenGenerationCompletedEventArgs)
+    Public Delegate Sub generateTokenCompletedEventHandler(ByVal sender As Object, ByVal e As generateTokenCompletedEventArgs)
     
     '''<remarks/>
     <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
-    Partial Public Class TokenGenerationCompletedEventArgs
+    Partial Public Class generateTokenCompletedEventArgs
         Inherits System.ComponentModel.AsyncCompletedEventArgs
         
         Private results() As Object

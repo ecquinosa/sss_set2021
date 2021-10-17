@@ -221,7 +221,7 @@
       <Value Profile="(Default)">http://sssohs:7777/webcallingds/DisclosureWebserviceImplService</Value>
     </Setting>
     <Setting Name="SSIT_SERVER_SSSTokenGenerator_TokenDetailsService" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://10.0.4.252:3014/TokenGeneration/TokenDetailsPort</Value>
+      <Value Profile="(Default)">http://10.141.249.22:8017/TokenServiceBean/TokenServiceBeanService</Value>
     </Setting>
     <Setting Name="SSIT_SERVER_MobileWS2BeanService_MobileWS2BeanService" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://wws.sss.gov.ph:80/MobileWSBean/MobileWSBeanService</Value>

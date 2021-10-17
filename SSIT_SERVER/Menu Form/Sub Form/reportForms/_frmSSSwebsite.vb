@@ -490,6 +490,10 @@ Public Class _frmSSSwebsite
                 Button9.Font = New Font(Button9.Font.Name, Button9.Font.Size - 3)
                 Button8.Font = New Font(Button8.Font.Name, Button8.Font.Size - 3)
                 Button4.Font = New Font(Button4.Font.Name, Button4.Font.Size - 3)
+
+                Panel2.Height = Panel2.Height - 10
+                Label1.Font = New Font(Label1.Font.Name, Label1.Font.Size - 3, Label1.Font.Style)
+                Label1.Height = Label1.Height - 15
             End If
 
         Catch ex As Exception
@@ -945,9 +949,14 @@ Public Class _frmSSSwebsite
         WebPageLoaded1()
         'WebBrowser1.ScriptErrorsSuppressed = True
         Dim obj1 As SHDocVw.WebBrowser = DirectCast(Me.WebBrowser1.ActiveXInstance, SHDocVw.WebBrowser)
-        Dim zoomFactor As Integer = 115
-        obj1.ExecWB(SHDocVw.OLECMDID.OLECMDID_OPTICAL_ZOOM,
-SHDocVw.OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER, zoomFactor, IntPtr.Zero)
+        Dim zoomFactor As Integer = 90 '115
+        Try
+            'If SharedFunction.GetMonitorInch = SharedFunction.monitorInch.twelveInch Then zoomFactor = 100
+            obj1.ExecWB(SHDocVw.OLECMDID.OLECMDID_OPTICAL_ZOOM, SHDocVw.OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER, zoomFactor, IntPtr.Zero)
+        Catch ex As Exception
+            obj1.ExecWB(SHDocVw.OLECMDID.OLECMDID_OPTICAL_ZOOM, SHDocVw.OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER, CObj(zoomFactor), CObj(IntPtr.Zero))
+        End Try
+        'obj1.ExecWB(SHDocVw.OLECMDID.OLECMDID_OPTICAL_ZOOM, SHDocVw.OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER, zoomFactor, IntPtr.Zero)
 
     End Sub
 

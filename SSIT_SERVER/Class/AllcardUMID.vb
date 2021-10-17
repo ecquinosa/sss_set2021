@@ -7,7 +7,7 @@ Public Class AllcardUMID
         Dim sb As New System.Text.StringBuilder
 
         Try
-            Dim sc As UMIDLibrary.AllCardTech_Smart_Card
+            Dim sc As UMIDLibrary.AllCardTech_Smart_Card = Nothing
             Init(sc)
 
             Dim _CRN As String = GetCRN(ErrorMessage, sc)
@@ -42,7 +42,7 @@ Public Class AllcardUMID
         Dim sb As New System.Text.StringBuilder
 
         Try
-            Dim sc As UMIDLibrary.AllCardTech_Smart_Card
+            Dim sc As UMIDLibrary.AllCardTech_Smart_Card = Nothing
             Init(sc)
 
             Dim _CRN As String = GetCRN(ErrorMessage, sc)
@@ -74,7 +74,7 @@ Public Class AllcardUMID
         Dim sb As New System.Text.StringBuilder
 
         Try
-            Dim sc As UMIDLibrary.AllCardTech_Smart_Card
+            Dim sc As UMIDLibrary.AllCardTech_Smart_Card = Nothing
             Init(sc)
 
             AppletVersion = CheckAppVersion(ErrorMessage, sc)
@@ -534,6 +534,16 @@ Public Class AllcardUMID
         Init(sc)
 
         Try
+            If AppletVersion = AllcardUMID.UMIDType.UMID_OLD Then
+                If sc.AuthenticateSL1() Then
+                    If Not sc.AuthenticateSL2(Util.AsciiToByteArray(oldPin)) Then
+                        Return False
+                    End If
+                Else
+                    Return False
+                End If
+            End If
+
             Return sc.UMIDCard_Change_PIN(oldPin, newPin)
         Catch ex As Exception
             ErrorMessage = String.Format("ChangePIN(): Runtime error {0}", ex.Message)
@@ -679,7 +689,7 @@ Public Class AllcardUMID
         End Select
     End Function
 
-    Private Shared Function GetSectorLengthv2(ByVal intSectorID As Integer) As Integer
+    Public Shared Function GetSectorLengthv2(ByVal intSectorID As Integer) As Integer
         'Init(sc)
 
         Select Case AppletVersion ' CheckAppVersion(, sc)

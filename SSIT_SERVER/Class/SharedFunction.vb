@@ -727,7 +727,7 @@
         End Try
     End Sub
 
-    Public Shared Function createFile()
+    Public Shared Sub createFile()
         Dim filepath As String = Application.StartupPath & "\REF_NUM" ' & "\" & "Ref_Num\" & "REF_NUM.txt"  '  "C:\Users\Nikki Cassandra\Desktop\sample.txt"
         If System.IO.Directory.Exists(filepath) = False Then
             System.IO.Directory.CreateDirectory(filepath)
@@ -735,7 +735,7 @@
         End If
 
 
-    End Function
+    End Sub
 
     Public Shared Sub ShowAppMainForm(Optional ByVal _form As Form = Nothing)
         If Not _form Is Nothing Then
@@ -1095,17 +1095,34 @@
         End If
     End Sub
 
+    'Public Shared Function tokenDetailsResponse(ByVal sssNo As String) As SSSTokenGenerator.tokenDetailsResponse
+    '    Dim tds As New SSSTokenGenerator.TokenDetailsService()
+    '    'tds.Url = "http://10.0.4.252:3014/TokenGeneration/TokenDetailsPort?WSDL"
+    '    'tds.Url = "http://10.141.249.22:8017/TokenServiceBean/TokenServiceBeanService?WSDL"
+    '    Try
+    '        Dim tdr As New SSSTokenGenerator.tokenDetailsRequest
+    '        tdr.sssid = sssNo
+    '        tdr.erbrn = ""
+    '        tdr.appcd = "RC"
+    '        tdr.trancd = "M"
+    '        Return tds.TokenGeneration(tdr)
+    '    Catch ex As Exception
+    '        Dim errMsg As String = ex.Message
+    '        Dim tdr As New SSSTokenGenerator.tokenDetailsResponse
+    '        tdr.msg = 0
+    '        Return tdr
+    '    Finally
+    '        tds.Dispose()
+    '    End Try
+    'End Function
+
     Public Shared Function tokenDetailsResponse(ByVal sssNo As String) As SSSTokenGenerator.tokenDetailsResponse
-        Dim tds As New SSSTokenGenerator.TokenDetailsService()
-        'tds.Url = UpdateCntctInfoTokenGenerator_URL
+        Dim tds As New SSSTokenGenerator.TokenServiceBeanService
+        tds.Url = UpdateCntctInfoTokenGenerator_URL
         Try
-            Dim tdr As New SSSTokenGenerator.tokenDetailsRequest
-            tdr.sssid = sssNo
-            tdr.erbrn = ""
-            tdr.appcd = "RC"
-            tdr.trancd = "M"
-            Return tds.TokenGeneration(tdr)
+            Return tds.generateToken(sssNo, "", "RC", "M")
         Catch ex As Exception
+            Dim errMsg As String = ex.Message
             Dim tdr As New SSSTokenGenerator.tokenDetailsResponse
             tdr.msg = 0
             Return tdr
@@ -2279,6 +2296,8 @@
             Case "OFW".ToUpper, "Overseas Contract Worker".ToUpper, "OCW - Flexi Fund Member".ToUpper, "OCW-Flexi Fund Member".ToUpper 'PRN_MemberType_OverseasContractWorker.ToUpper"
                 Return "5"
         End Select
+
+        Return ""
     End Function
 
     Public Shared Function AppliedFrom() As String
@@ -2420,6 +2439,8 @@
             Case 12
                 Return "December"
         End Select
+
+        Return ""
     End Function
 
     Public Shared Sub ShowErrorForm(ByRef pnl As Panel)

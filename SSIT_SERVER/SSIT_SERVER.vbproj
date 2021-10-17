@@ -1289,13 +1289,13 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.vb</LastGenOutput>
     </None>
-    <None Include="Web References\SSSTokenGenerator\TokenDetailsPort.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Web References\SSSTokenGenerator\tokenDetailsResponse.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\SSSTokenGenerator\TokenDetailsService.wsdl" />
+    <None Include="Web References\SSSTokenGenerator\TokenServiceBeanService.wsdl" />
+    <None Include="Web References\SSSTokenGenerator\TokenServiceBeanService.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web References\UmidService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.vb</LastGenOutput>
@@ -1494,10 +1494,10 @@
       <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>SSIT_SERVER_SimpleWebRegistrationService_SimpleWebRegistrationService</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://10.0.4.252:3014/TokenGeneration/TokenDetailsPort%3fWSDL">
+    <WebReferenceUrl Include="http://10.141.249.22:8017/TokenServiceBean/TokenServiceBeanService%3fWSDL">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\SSSTokenGenerator\</RelPath>
-      <UpdateFromURL>http://10.0.4.252:3014/TokenGeneration/TokenDetailsPort%3fWSDL</UpdateFromURL>
+      <UpdateFromURL>http://10.141.249.22:8017/TokenServiceBean/TokenServiceBeanService%3fWSDL</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

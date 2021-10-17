@@ -40,7 +40,8 @@ Public Class usrfrmFingerprintValidation12
         'sb.AppendLine("ctrl - Width " & Me.Size.Width & ", Height " & Me.Size.Height)
         'MessageBox.Show(sb.ToString)
 
-        StartProcess()
+        'StartProcess()
+        ShowPIN()
 
         'MatchingSuccess(0)
     End Sub
@@ -209,6 +210,13 @@ Public Class usrfrmFingerprintValidation12
             Invoke(New Action(AddressOf ShowUserFormPIN))
         End If
     End Sub
+
+    Private Sub ShowPIN()
+        lblMessage.Text = ""
+        Application.DoEvents()
+        Invoke(New Action(AddressOf ShowUserFormPIN))
+    End Sub
+
 
     'added by edel Nov 19, 2020
     Private Sub MatchingFailed(ByVal code As String, ByRef _finger_index As Integer, ByRef ATTMPTCNTR As Integer, ByRef MATCHINGCNTR As Integer)

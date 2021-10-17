@@ -206,33 +206,59 @@ Public Class _frmMainMenu
     End Sub
 #End Region
 
-    Private Function GetDriver()
+    Private Function GetDriver() As Boolean
+        Dim logicalDrive As New List(Of String)
         Dim comboBox1 As New ComboBox
         For Each drive In Environment.GetLogicalDrives
             Dim Driver As DriveInfo = New DriveInfo(drive)
-            If Driver.DriveType = DriveType.Removable Or Driver.DriveType = DriveType.Fixed Then
-                comboBox1.Items.Add(drive)
-            End If
+            If Driver.DriveType = DriveType.Fixed Then logicalDrive.Add(drive)
         Next
+
         Dim getdate As String = Date.Today.ToString("ddMMyyyy")
         Dim getbranchCoDE As String = db.putSingleValue("select BRANCH_CD from SSINFOTERMBR where BRANCH_NM = '" & kioskBranch & "'")
         kioskBranchCD = getbranchCoDE
 
-        SaveToDrive = comboBox1.Items(comboBox1.Items.Count - 1)
-        Path1 = (SaveToDrive & "SSIT\logs\" & getdate & " " & getbranchCoDE)
-        If (Not System.IO.Directory.Exists(Path1)) Then
-            System.IO.Directory.CreateDirectory(Path1)
-        End If
+        Dim isSettingDriveExist As Boolean = False
+
+        For Each lDrive In logicalDrive
+            SaveToDrive = lDrive
+            If Directory.Exists(SaveToDrive & "SSIT\Settings") Then
+                isSettingDriveExist = True
+                Path1 = (SaveToDrive & "SSIT\logs\" & getdate & " " & getbranchCoDE)
+                If (Not System.IO.Directory.Exists(Path1)) Then System.IO.Directory.CreateDirectory(Path1)
+            End If
+        Next
+
+        If Not isSettingDriveExist Then SharedFunction.ShowWarningMessage("UNABLE TO FIND REQUIRED 'SSIT\Settings' DIRECTORY TO ANY LOGICAL DRIVE(S)")
+
+        Return isSettingDriveExist
     End Function
 
-    Public Function clearFile()
+    'Private Function GetDriver_bak()
+    '    Dim comboBox1 As New ComboBox
+    '    For Each drive In Environment.GetLogicalDrives
+    '        Dim Driver As DriveInfo = New DriveInfo(drive)
+    '        If Driver.DriveType = DriveType.Removable Or Driver.DriveType = DriveType.Fixed Then
+    '            comboBox1.Items.Add(drive)
+    '        End If
+    '    Next
+    '    Dim getdate As String = Date.Today.ToString("ddMMyyyy")
+    '    Dim getbranchCoDE As String = db.putSingleValue("select BRANCH_CD from SSINFOTERMBR where BRANCH_NM = '" & kioskBranch & "'")
+    '    kioskBranchCD = getbranchCoDE
+
+    '    SaveToDrive = comboBox1.Items(comboBox1.Items.Count - 1)
+    '    Path1 = (SaveToDrive & "SSIT\logs\" & getdate & " " & getbranchCoDE)
+    '    If (Not System.IO.Directory.Exists(Path1)) Then System.IO.Directory.CreateDirectory(Path1)
+    'End Function
+
+    Public Sub clearFile()
         Try
             Dim txt1 As String
             Dim txt2
             Dim getTxtDate As String
 
 
-            Dim getTransNo As String
+            'Dim getTransNo As String
             Using SW As New IO.StreamReader(Application.StartupPath & "\" & "REF_NUM\" & "\" & "REF_NUM.txt", True)
                 txt1 = SW.ReadToEnd
             End Using
@@ -257,7 +283,7 @@ Public Class _frmMainMenu
         Catch ex As Exception
 
         End Try
-    End Function
+    End Sub
 
     Public Sub navMain()
         getURL = getPermanentURL & "controller?action=sss&id=" & SSStempFile
@@ -861,6 +887,7 @@ Public Class _frmMainMenu
                 frm.Close()
             End If
         Catch ex As Exception
+            Dim errMsg As String = ex.Message
         End Try
     End Sub
 
@@ -1123,7 +1150,7 @@ Public Class _frmMainMenu
         xtd.getRawFile()
 
         Dim result As Integer = xtd.checkFileType
-        Dim resultSSS As String
+        Dim resultSSS As String = ""
         If result = 1 Then
             resultSSS = xtd.getCRN
         ElseIf result = 2 Then
@@ -1232,7 +1259,7 @@ Public Class _frmMainMenu
                 GC.Collect()
                 _frmUserAuthentication.getTransacNum()
                 Dim prt As New printModule
-                Dim f1, f2, f3 As String
+                Dim f2, f3 As String
                 f2 = prt.GetMiddleName(_frmWebBrowser.WebBrowser1)
                 f3 = prt.GetLastName(_frmWebBrowser.WebBrowser1)
                 getFname = f3 & " " & f2
@@ -1486,6 +1513,7 @@ Public Class _frmMainMenu
         Dim result As Integer = xtd.checkFileType
         If result = 1 Then Return xtd.getCRN
         If result = 2 Then Return SSStempFile
+        Return ""
     End Function
 
     Public Sub MaternityNotifv2()
@@ -1589,6 +1617,8 @@ Public Class _frmMainMenu
             Return promptMsg
         Catch ex As Exception
             Console.WriteLine(ex.Message)
+
+            Return ""
         End Try
         ' dob = dob.ToString("dd-MM-YYYY")
 
@@ -1986,7 +2016,7 @@ Public Class _frmMainMenu
 
         _frmWebBrowser.lblDisclaimer.Visible = False
         DisposeForm(_frmUserAuthentication)
-        tagPage = "9"
+        tagPage = "13"
 
         GC.Collect()
 
@@ -2001,7 +2031,8 @@ Public Class _frmMainMenu
         _frmUpdCntcInfv2.Show()
 
         PrintControls(False)
-        BackNextControls(False)
+        'BackNextControls(True)
+        BackNextControls(True, True)
 
         'pnlWebContactInfo.Location = New Point(-124, -1)
         'pnlWebContactInfo.Size = New Size(1191, 1051)
@@ -2032,8 +2063,8 @@ Public Class _frmMainMenu
         xtd.getRawFile()
         tagPage = "6"
         Dim chkType As String = xtd.checkFileType
-        Dim result As String
-        Dim tempSS As String
+        'Dim result As String
+        Dim tempSS As String = ""
         If chkType = 1 Then
             tempSS = xtd.getCRN
         ElseIf chkType = 2 Then
@@ -2078,7 +2109,7 @@ Public Class _frmMainMenu
         tagPage = "6"
         Dim chkType As String = xtd.checkFileType
         Dim result As String
-        Dim tempSS As String
+        Dim tempSS As String = ""
         If chkType = 1 Then
             tempSS = xtd.getCRN
         ElseIf chkType = 2 Then
@@ -2332,7 +2363,7 @@ Public Class _frmMainMenu
             'ssit will automatically check if pensioner has any posted contribution from date of retirement up to current date
             'End If
             Dim result As Integer = xtd.checkFileType
-            Dim resultSSS As String
+            Dim resultSSS As String = ""
             If result = 1 Then
                 'xtd.getPensionDetails(xtd.getCRN)
                 resultSSS = xtd.getCRN
@@ -2470,7 +2501,7 @@ Public Class _frmMainMenu
             'ssit will automatically check if pensioner has any posted contribution from date of retirement up to current date
             'End If
             Dim result As Integer = xtd.checkFileType
-            Dim resultSSS As String
+            Dim resultSSS As String = ""
             If result = 1 Then
                 'xtd.getPensionDetails(xtd.getCRN)
                 resultSSS = xtd.getCRN
@@ -3059,6 +3090,8 @@ Public Class _frmMainMenu
 
                 Case "10"
                     _frmWebBrowser.WebBrowser1.GoBack()
+                Case "13"
+                    _frmUpdCntcInfv2.ScrollDownv2()
                 Case Else
                     MsgBox("That is not accessible", MsgBoxStyle.Information)
             End Select
@@ -3167,6 +3200,8 @@ Public Class _frmMainMenu
                     End Try
                 Case "10"
                     _frmWebBrowser.WebBrowser1.GoBack()
+                Case "13"
+                    _frmUpdCntcInfv2.ScrollUpv2()
                 Case Else
                     '  nikki01
                     MsgBox("That is not accessible", MsgBoxStyle.Information)
@@ -5618,7 +5653,7 @@ Public Class _frmMainMenu
                             class1.prt(class1.prtValidation(note, fullnameprint, xtd.getCRN, procCodeLen3, "ANNUAL CONFIRMATION OF PENSIONER", "Print"), DefaultPrinterName)
 
                             'ClearCache2()'e
-                            '''
+
                         Case "ACOP04"
 
                             If lastTransNo = "" Or lastTransNo.Length < 19 Then
@@ -5726,7 +5761,7 @@ Public Class _frmMainMenu
 
 
                 End If
-            Case "9" 'update contact info is disabled due to url approach
+            Case "13" 'update contact info is disabled due to url approach
                 'Dim class1 As New PrintHelper
                 'class1.prt(class1.prtUpdateContactInformation_Receipt(fullnameprint, SSStempFile, UpdateCntctInfo_SuccessTxnNo, "UPDATE CONTACT INFORMATION", "Print"), DefaultPrinterName)
                 'class1 = Nothing
